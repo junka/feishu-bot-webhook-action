@@ -31125,11 +31125,12 @@ function PostGithubEvent() {
     const webhookId = webhook.slice(webhook.indexOf("hook/") + 5);
     const tm = Math.floor(Date.now() / 1000);
     const sign = sign_with_timestamp(tm, signKey);
-    const actor = github_1.context.actor || JSON.parse(`[{"id":"123a"}]`);
+    const actor = github_1.context.actor || JSON.parse(`[]`);
     const eventType = github_1.context.eventName || "news";
     console.log(eventType);
     const repo = ((_a = github_1.context.payload.repository) === null || _a === void 0 ? void 0 : _a.name) || "junka";
     const status = github_1.context.payload.action || "closed";
+    var etitle = ((_b = github_1.context.payload.issue) === null || _b === void 0 ? void 0 : _b.html_url) || ((_c = github_1.context.payload.pull_request) === null || _c === void 0 ? void 0 : _c.html_url);
     switch (github_1.context.eventName) {
         case 'branch_protection_rule':
             break;
@@ -31196,6 +31197,7 @@ function PostGithubEvent() {
         case 'status':
             break;
         case 'watch':
+            etitle = "Total stars: " + github_1.context.payload['stargazers_count'];
             break;
         case 'workflow_call':
             break;
@@ -31204,7 +31206,6 @@ function PostGithubEvent() {
         case 'workflow_run':
             break;
     }
-    const etitle = ((_b = github_1.context.payload.issue) === null || _b === void 0 ? void 0 : _b.html_url) || ((_c = github_1.context.payload.pull_request) === null || _c === void 0 ? void 0 : _c.html_url) || "vvvv";
     const color = "blue";
     const msg = `{
         "timestamp": "${tm}",
@@ -31226,7 +31227,6 @@ function PostGithubEvent() {
             }
         }
     }`;
-    console.log(msg);
     PostToFeishu(webhookId, msg);
 }
 PostGithubEvent();

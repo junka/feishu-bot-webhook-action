@@ -28,30 +28,55 @@ custom the events you care
 name: feishu bot
 
 on:
-  push:
-    branches: [ "main" ]
+  branch_protection_rule:
+    types: [created, deleted]
+  check_run:
+    types: [rerequested, completed]
+  check_suite:
+    types: [completed]
+  create:
+  delete:
+  deployment_status:
   discussion:
     types: [created, edited, answered]
   discussion_comment:
     types: [created, deleted]
-  fork
-  create
-  delete
+  fork:
+  gollum:
   issues:
-    types: [opened, edited, milestoned]
+    types: [opened, edited, milestoned, pinned, reopened]
   issue_comment:
     types: [created, deleted]
-  pull_request:
-    branches: [ "main" ]
-    types: [opened, reopened]
+  label:
+    types: [created, deleted]
   merge_group:
     types: [checks_requested]
   milestone:
     types: [opened, deleted]
+  page_build:
   project:
-    types: [created, deleted]
+    types: [created, deleted, reopened]
   project_card:
     types: [created, deleted]
+  project_column:
+    types: [created, deleted]
+  public:
+  pull_request:
+    branches: [ "main" ]
+    types: [opened, reopened]
+  pull_request_review:
+    types: [edited, dismissed, submitted]
+  pull_request_review_comment:
+    types: [created, edited, deleted]
+  pull_request_target:
+    types: [assigned, opened, synchronize, reopened]
+  push:
+    branch: [ "main" ]
+  registry_package:
+    types: [published]
+  release:
+    types: [published]
+  status:
   watch:
     types: [started]
 
