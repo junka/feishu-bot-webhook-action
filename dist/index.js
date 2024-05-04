@@ -31121,7 +31121,7 @@ function PostGithubEvent() {
         ? core.getInput("signkey")
         : "XbCuUmXemE0rRFvUwlVH2g";
     const payload = github_1.context.payload || {};
-    console.log(payload.repository);
+    console.log(payload);
     const webhookId = webhook.slice(webhook.indexOf("hook/") + 5);
     const tm = Math.floor(Date.now() / 1000);
     const sign = sign_with_timestamp(tm, signKey);
@@ -31185,6 +31185,7 @@ function PostGithubEvent() {
         case 'pull_request_target':
             break;
         case 'push':
+            etitle = "Commits: " + github_1.context.payload["head_commit"]["id"] + " " + github_1.context.payload["head_commit"]["url"];
             break;
         case 'registry_package':
             break;

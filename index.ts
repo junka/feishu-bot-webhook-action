@@ -41,7 +41,7 @@ function PostGithubEvent() {
         : "XbCuUmXemE0rRFvUwlVH2g";
 
     const payload = context.payload || {}
-    console.log(payload.repository)
+    console.log(payload)
 
     const webhookId = webhook.slice(webhook.indexOf("hook/") + 5);
     const tm = Math.floor(Date.now() / 1000);
@@ -108,6 +108,7 @@ function PostGithubEvent() {
         case 'pull_request_target':
             break;
         case 'push':
+            etitle = "Commits: " + context.payload["head_commit"]["id"] + " " + context.payload["head_commit"]["url"];
             break;
         case 'registry_package':
             break;
