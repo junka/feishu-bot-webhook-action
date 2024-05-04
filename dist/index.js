@@ -31113,6 +31113,10 @@ function PostToFeishu(id, content) {
     req.end();
 }
 function PostGithubEvent() {
+<<<<<<< HEAD
+=======
+    var _a, _b, _c;
+>>>>>>> c019458 (send card message)
     const webhook = core.getInput("webhook")
         ? core.getInput("webhook")
         : "https://open.feishu.cn/open-apis/bot/v2/hook/cd316482-d7e0-41d0-b7fd-1a1255a44131";
@@ -31120,14 +31124,101 @@ function PostGithubEvent() {
         ? core.getInput("signkey")
         : "XbCuUmXemE0rRFvUwlVH2g";
     const payload = github_1.context.payload || {};
+<<<<<<< HEAD
     console.log(payload);
+=======
+    console.log(payload.repository);
+>>>>>>> c019458 (send card message)
     const webhookId = webhook.slice(webhook.indexOf("hook/") + 5);
     const tm = Math.floor(Date.now() / 1000);
-    console.log(tm);
     const sign = sign_with_timestamp(tm, signKey);
+<<<<<<< HEAD
     console.log(sign);
     const actor = github_1.context.actor;
     const eventType = github_1.context.eventName;
+=======
+    const actor = github_1.context.actor || JSON.parse(`[{"id":"123a"}]`);
+    const eventType = github_1.context.eventName || "news";
+    console.log(eventType);
+    const repo = ((_a = github_1.context.payload.repository) === null || _a === void 0 ? void 0 : _a.name) || "junka";
+    const status = github_1.context.payload.action || "closed";
+    switch (github_1.context.eventName) {
+        case 'branch_protection_rule':
+            break;
+        case 'check_run':
+            break;
+        case 'check_suite':
+            break;
+        case 'create':
+            break;
+        case 'delete':
+            break;
+        case 'deployment':
+            break;
+        case 'deployment_status':
+            break;
+        case 'discussion':
+            break;
+        case 'discussion_comment':
+            break;
+        case 'fork':
+            break;
+        case 'gollum':
+            break;
+        case 'issue_comment':
+            break;
+        case 'issue':
+            break;
+        case 'label':
+            break;
+        case 'merge_group':
+            break;
+        case 'milestone':
+            break;
+        case 'page_build':
+            break;
+        case 'project':
+            break;
+        case 'project_card':
+            break;
+        case 'project_column':
+            break;
+        case 'public':
+            break;
+        case 'pull_request':
+            break;
+        case 'pull_request_comment':
+            break;
+        case 'pull_request_review':
+            break;
+        case 'pull_request_review_comment':
+            break;
+        case 'pull_request_target':
+            break;
+        case 'push':
+            break;
+        case 'registry_package':
+            break;
+        case 'release':
+            break;
+        case 'repository_dispatch':
+            break;
+        case 'schedule':
+            break;
+        case 'status':
+            break;
+        case 'watch':
+            break;
+        case 'workflow_call':
+            break;
+        case 'workflow_dispatch':
+            break;
+        case 'workflow_run':
+            break;
+    }
+    const etitle = ((_b = github_1.context.payload.issue) === null || _b === void 0 ? void 0 : _b.html_url) || ((_c = github_1.context.payload.pull_request) === null || _c === void 0 ? void 0 : _c.html_url) || "vvvv";
+    const color = "blue";
+>>>>>>> c019458 (send card message)
     const msg = `{
         "timestamp": "${tm}",
         "sign": "${sign}",
@@ -31136,14 +31227,29 @@ function PostGithubEvent() {
             "type": "template",
             "data": {
                 "template_id": "AAqkeNyiypMLb",
+<<<<<<< HEAD
                 "template_version_name": "1.0.1",
                 "template_variable": {
                     "auser": "${actor}",
                     "eventType": "${eventType}"
+=======
+                "template_version_name": "1.0.2",
+                "template_variable": {
+                    "repo": "${repo}",
+                    "eventType": "${eventType}",
+                    "themeColor": "${color}",
+                    "actor": "${actor}",
+                    "status": "${status}",
+                    "etitle": "${etitle}"
+>>>>>>> c019458 (send card message)
                 }
             }
         }
     }`;
+<<<<<<< HEAD
+=======
+    console.log(msg);
+>>>>>>> c019458 (send card message)
     PostToFeishu(webhookId, msg);
 }
 PostGithubEvent();

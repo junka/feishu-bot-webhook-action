@@ -4,31 +4,50 @@ import { context } from "@actions/github";
 import * as crypto from "crypto";
 
 function sign_with_timestamp(timestamp: number, key: string): string {
-  const toencstr = `${timestamp}\n${key}`;
-  const signature = crypto.createHmac("SHA256", toencstr).digest("base64");
-  return signature;
+    const toencstr = `${timestamp}\n${key}`;
+    const signature = crypto.createHmac("SHA256", toencstr).digest("base64");
+    return signature;
 }
 
 function PostToFeishu(id: string, content: string) {
-  var options = {
-    hostname: "open.feishu.cn",
-    port: 443,
-    path: `/open-apis/bot/v2/hook/${id}`,
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  var req = https.request(options, (res) => {
-    res.on("data", (d) => {
-      process.stdout.write(d);
+    var options = {
+        hostname: "open.feishu.cn",
+        port: 443,
+        path: `/open-apis/bot/v2/hook/${id}`,
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    var req = https.request(options, (res) => {
+        res.on("data", (d) => {
+            process.stdout.write(d);
+        });
     });
-  });
-  req.on("error", (e) => {
-    console.error(e);
-  });
-  req.write(content);
-  req.end();
+    req.on("error", (e) => {
+        console.error(e);
+    });
+    req.write(content);
+    req.end();
+    var options = {
+        hostname: "open.feishu.cn",
+        port: 443,
+        path: `/open-apis/bot/v2/hook/${id}`,
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    var req = https.request(options, (res) => {
+        res.on("data", (d) => {
+            process.stdout.write(d);
+        });
+    });
+    req.on("error", (e) => {
+        console.error(e);
+    });
+    req.write(content);
+    req.end();
 }
 
 function PostGithubEvent() {
@@ -41,16 +60,94 @@ function PostGithubEvent() {
         : "XbCuUmXemE0rRFvUwlVH2g";
 
     const payload = context.payload || {}
-    console.log(payload)
+    console.log(payload.repository)
 
     const webhookId = webhook.slice(webhook.indexOf("hook/") + 5);
     const tm = Math.floor(Date.now() / 1000);
-    console.log(tm);
     const sign = sign_with_timestamp(tm, signKey);
-    console.log(sign);
 
-    const actor = context.actor;
-    const eventType = context.eventName;
+    const actor = context.actor || JSON.parse(`[{"id":"123a"}]`);
+    const eventType = context.eventName || "news";
+    console.log(eventType)
+    const repo = context.payload.repository?.name || "junka";
+    const status = context.payload.action || "closed";
+    switch (context.eventName) {
+        case 'branch_protection_rule':
+            break;
+        case 'check_run':
+            break;
+        case 'check_suite':
+            break;
+        case 'create':
+            break;
+        case 'delete':
+            break;
+        case 'deployment':
+            break;
+        case 'deployment_status':
+            break;
+        case 'discussion':
+            break;
+        case 'discussion_comment':
+            break;
+        case 'fork':
+            break;
+        case 'gollum':
+            break;
+        case 'issue_comment':
+            break;
+        case 'issue':
+            break;
+        case 'label':
+            break;
+        case 'merge_group':
+            break;
+        case 'milestone':
+            break;
+        case 'page_build':
+            break;
+        case 'project':
+            break;
+        case 'project_card':
+            break;
+        case 'project_column':
+            break;
+        case 'public':
+            break;
+        case 'pull_request':
+            break;
+        case 'pull_request_comment':
+            break;
+        case 'pull_request_review':
+            break;
+        case 'pull_request_review_comment':
+            break;
+        case 'pull_request_target':
+            break;
+        case 'push':
+            break;
+        case 'registry_package':
+            break;
+        case 'release':
+            break;
+        case 'repository_dispatch':
+            break;
+        case 'schedule':
+            break;
+        case 'status':
+            break;
+        case 'watch':
+            break;
+        case 'workflow_call':
+            break;
+        case 'workflow_dispatch':
+            break;
+        case 'workflow_run':
+            break;
+    }
+
+    const etitle = context.payload.issue?.html_url || context.payload.pull_request?.html_url || "vvvv";
+    const color = "blue";
     const msg = `{
         "timestamp": "${tm}",
         "sign": "${sign}",
@@ -59,14 +156,19 @@ function PostGithubEvent() {
             "type": "template",
             "data": {
                 "template_id": "AAqkeNyiypMLb",
-                "template_version_name": "1.0.1",
+                "template_version_name": "1.0.3",
                 "template_variable": {
-                    "auser": "${actor}",
-                    "eventType": "${eventType}"
+                    "repo": "${repo}",
+                    "eventType": "${eventType}",
+                    "themeColor": "${color}",
+                    "actor": "${actor}",
+                    "status": "${status}",
+                    "etitle": "${etitle}"
                 }
             }
         }
     }`
+    console.log(msg)
     PostToFeishu(webhookId, msg);
 }
 
