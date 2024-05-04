@@ -31088,43 +31088,63 @@ const github_1 = __nccwpck_require__(5438);
 const crypto = __nccwpck_require__(6113);
 function sign_with_timestamp(timestamp, key) {
     const toencstr = `${timestamp}\n${key}`;
-    const signature = crypto.createHmac('SHA256', toencstr).digest('base64');
+    const signature = crypto.createHmac("SHA256", toencstr).digest("base64");
     return signature;
 }
 function PostToFeishu(id, content) {
     var options = {
-        hostname: 'open.feishu.cn',
+        hostname: "open.feishu.cn",
         port: 443,
         path: `/open-apis/bot/v2/hook/${id}`,
-        method: 'POST',
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json'
-        }
+            "Content-Type": "application/json",
+        },
     };
     var req = https.request(options, (res) => {
-        res.on('data', (d) => {
+        res.on("data", (d) => {
             process.stdout.write(d);
         });
     });
-    req.on('error', (e) => {
+    req.on("error", (e) => {
         console.error(e);
     });
     req.write(content);
     req.end();
 }
 function PostGithubEvent() {
-    const webhook = core.getInput('webhook') ? core.getInput('webhook')
-        : process.env.WEBHOOK_URL ? process.env.WEBHOOK_URL : '';
-    const signKey = core.getInput('signkey') ? core.getInput('signkey')
-        : process.env.SIGN_KEY ? process.env.SIGN_KEY : "";
-    const github_event = github_1.context.payload || {};
-    console.log(github_event);
-    const webhookId = webhook.slice(webhook.indexOf('hook/') + 5);
+    const webhook = core.getInput("webhook")
+        ? core.getInput("webhook")
+        : "https://open.feishu.cn/open-apis/bot/v2/hook/cd316482-d7e0-41d0-b7fd-1a1255a44131";
+    const signKey = core.getInput("signkey")
+        ? core.getInput("signkey")
+        : "XbCuUmXemE0rRFvUwlVH2g";
+    const payload = github_1.context.payload || {};
+    console.log(payload);
+    const webhookId = webhook.slice(webhook.indexOf("hook/") + 5);
     const tm = Math.floor(Date.now() / 1000);
     console.log(tm);
     const sign = sign_with_timestamp(tm, signKey);
     console.log(sign);
-    PostToFeishu(webhookId, `{"timestamp": "${tm}", "sign": "${sign}", "msg_type":"text","content":{"text":"www aaa ${github_event}"}}`);
+    const actor = github_1.context.actor;
+    const eventType = github_1.context.eventName;
+    const msg = `{
+        "timestamp": "${tm}",
+        "sign": "${sign}",
+        "msg_type": "interactive",
+        "card": {
+            "type": "template",
+            "data": {
+                "template_id": "AAqkeNyiypMLb",
+                "template_version_name": "1.0.1",
+                "template_variable": {
+                    "auser": "${actor}",
+                    "eventType": "${eventType}"
+                }
+            }
+        }
+    }`;
+    PostToFeishu(webhookId, msg);
 }
 PostGithubEvent();
 //# sourceMappingURL=index.js.map

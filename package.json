@@ -1,11 +1,12 @@
 {
   "name": "feishu-bot-webhook-action",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "call webhook for custom feishu bot",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc && ncc build dist/index.js",
-    "run": "node ./dist/index.js"
+    "run": "node ./dist/index.js",
+    "format": "prettier --write '*.ts'"
   },
   "keywords": [
     "bot",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@types/node": "^20.12.7",
     "@vercel/ncc": "^0.38.1",
+    "prettier": "^3.2.5",
     "tsc": "^2.0.4",
     "typescript": "^5.4.5"
   }
