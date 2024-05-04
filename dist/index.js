@@ -31113,10 +31113,7 @@ function PostToFeishu(id, content) {
     req.end();
 }
 function PostGithubEvent() {
-<<<<<<< HEAD
-=======
     var _a, _b, _c;
->>>>>>> c019458 (send card message)
     const webhook = core.getInput("webhook")
         ? core.getInput("webhook")
         : "https://open.feishu.cn/open-apis/bot/v2/hook/cd316482-d7e0-41d0-b7fd-1a1255a44131";
@@ -31124,19 +31121,10 @@ function PostGithubEvent() {
         ? core.getInput("signkey")
         : "XbCuUmXemE0rRFvUwlVH2g";
     const payload = github_1.context.payload || {};
-<<<<<<< HEAD
-    console.log(payload);
-=======
     console.log(payload.repository);
->>>>>>> c019458 (send card message)
     const webhookId = webhook.slice(webhook.indexOf("hook/") + 5);
     const tm = Math.floor(Date.now() / 1000);
     const sign = sign_with_timestamp(tm, signKey);
-<<<<<<< HEAD
-    console.log(sign);
-    const actor = github_1.context.actor;
-    const eventType = github_1.context.eventName;
-=======
     const actor = github_1.context.actor || JSON.parse(`[{"id":"123a"}]`);
     const eventType = github_1.context.eventName || "news";
     console.log(eventType);
@@ -31218,7 +31206,6 @@ function PostGithubEvent() {
     }
     const etitle = ((_b = github_1.context.payload.issue) === null || _b === void 0 ? void 0 : _b.html_url) || ((_c = github_1.context.payload.pull_request) === null || _c === void 0 ? void 0 : _c.html_url) || "vvvv";
     const color = "blue";
->>>>>>> c019458 (send card message)
     const msg = `{
         "timestamp": "${tm}",
         "sign": "${sign}",
@@ -31227,13 +31214,7 @@ function PostGithubEvent() {
             "type": "template",
             "data": {
                 "template_id": "AAqkeNyiypMLb",
-<<<<<<< HEAD
-                "template_version_name": "1.0.1",
-                "template_variable": {
-                    "auser": "${actor}",
-                    "eventType": "${eventType}"
-=======
-                "template_version_name": "1.0.2",
+                "template_version_name": "1.0.3",
                 "template_variable": {
                     "repo": "${repo}",
                     "eventType": "${eventType}",
@@ -31241,15 +31222,11 @@ function PostGithubEvent() {
                     "actor": "${actor}",
                     "status": "${status}",
                     "etitle": "${etitle}"
->>>>>>> c019458 (send card message)
                 }
             }
         }
     }`;
-<<<<<<< HEAD
-=======
     console.log(msg);
->>>>>>> c019458 (send card message)
     PostToFeishu(webhookId, msg);
 }
 PostGithubEvent();

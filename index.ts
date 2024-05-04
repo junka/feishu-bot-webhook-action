@@ -29,25 +29,6 @@ function PostToFeishu(id: string, content: string) {
     });
     req.write(content);
     req.end();
-    var options = {
-        hostname: "open.feishu.cn",
-        port: 443,
-        path: `/open-apis/bot/v2/hook/${id}`,
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    };
-    var req = https.request(options, (res) => {
-        res.on("data", (d) => {
-            process.stdout.write(d);
-        });
-    });
-    req.on("error", (e) => {
-        console.error(e);
-    });
-    req.write(content);
-    req.end();
 }
 
 function PostGithubEvent() {
