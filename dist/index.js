@@ -31113,24 +31113,26 @@ function PostToFeishu(id, content) {
     req.end();
 }
 function PostGithubEvent() {
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
     const webhook = core.getInput("webhook")
         ? core.getInput("webhook")
-        : "https://open.feishu.cn/open-apis/bot/v2/hook/cd316482-d7e0-41d0-b7fd-1a1255a44131";
+        : "";
     const signKey = core.getInput("signkey")
         ? core.getInput("signkey")
-        : "XbCuUmXemE0rRFvUwlVH2g";
+        : "";
     const payload = github_1.context.payload || {};
     console.log(payload);
     const webhookId = webhook.slice(webhook.indexOf("hook/") + 5);
     const tm = Math.floor(Date.now() / 1000);
     const sign = sign_with_timestamp(tm, signKey);
-    const actor = github_1.context.actor || JSON.parse(`[]`);
+    const actor = github_1.context.actor || "junka";
     const eventType = github_1.context.eventName || "news";
     console.log(eventType);
     const repo = ((_a = github_1.context.payload.repository) === null || _a === void 0 ? void 0 : _a.name) || "junka";
-    const status = github_1.context.payload.action || "closed";
+    var status = github_1.context.payload.action || "closed";
     var etitle = ((_b = github_1.context.payload.issue) === null || _b === void 0 ? void 0 : _b.html_url) || ((_c = github_1.context.payload.pull_request) === null || _c === void 0 ? void 0 : _c.html_url);
+    var detailurl = "";
+    const avatar = "img_v2_9dd98485-2900-4d65-ada9-e31d1408dcfg";
     switch (github_1.context.eventName) {
         case 'branch_protection_rule':
             break;
@@ -31185,7 +31187,9 @@ function PostGithubEvent() {
         case 'pull_request_target':
             break;
         case 'push':
-            etitle = "Commits: " + github_1.context.payload["head_commit"]["id"] + " " + github_1.context.payload["head_commit"]["url"];
+            etitle = "Commits: [" + github_1.context.payload["head_commit"]["id"] + "](" + github_1.context.payload["compare"] + ")";
+            status = github_1.context.payload["created"] == true ? "created" : (github_1.context.payload["forced"] == true ? "forced" : "");
+            detailurl = github_1.context.payload["compare"];
             break;
         case 'registry_package':
             break;
@@ -31199,6 +31203,8 @@ function PostGithubEvent() {
             break;
         case 'watch':
             etitle = "Total stars: " + github_1.context.payload['stargazers_count'];
+            status = "stared";
+            detailurl = ((_d = github_1.context.payload.repository) === null || _d === void 0 ? void 0 : _d.html_url) || "";
             break;
         case 'workflow_call':
             break;
@@ -31216,14 +31222,16 @@ function PostGithubEvent() {
             "type": "template",
             "data": {
                 "template_id": "AAqkeNyiypMLb",
-                "template_version_name": "1.0.3",
+                "template_version_name": "1.0.6",
                 "template_variable": {
                     "repo": "${repo}",
                     "eventType": "${eventType}",
                     "themeColor": "${color}",
-                    "actor": "${actor}",
+                    "auser": "${actor}",
+                    "avatar": "${avatar}",
                     "status": "${status}",
-                    "etitle": "${etitle}"
+                    "etitle": "${etitle}",
+                    "detailurl": "${detailurl}"
                 }
             }
         }

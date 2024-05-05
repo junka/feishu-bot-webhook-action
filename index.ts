@@ -34,11 +34,11 @@ function PostToFeishu(id: string, content: string) {
 function PostGithubEvent() {
     const webhook = core.getInput("webhook")
         ? core.getInput("webhook")
-        : "https://open.feishu.cn/open-apis/bot/v2/hook/cd316482-d7e0-41d0-b7fd-1a1255a44131";
+        : "";
 
     const signKey = core.getInput("signkey")
         ? core.getInput("signkey")
-        : "XbCuUmXemE0rRFvUwlVH2g";
+        : "";
 
     const payload = context.payload || {}
     console.log(payload)
@@ -47,12 +47,14 @@ function PostGithubEvent() {
     const tm = Math.floor(Date.now() / 1000);
     const sign = sign_with_timestamp(tm, signKey);
 
-    const actor = context.actor || JSON.parse(`[]`);
+    const actor = context.actor || "junka";
     const eventType = context.eventName || "news";
     console.log(eventType)
     const repo = context.payload.repository?.name || "junka";
-    const status = context.payload.action || "closed";
+    var status = context.payload.action || "closed";
     var etitle = context.payload.issue?.html_url || context.payload.pull_request?.html_url
+    var detailurl = ""
+    const avatar = "img_v2_9dd98485-2900-4d65-ada9-e31d1408dcfg";
 
     switch (context.eventName) {
         case 'branch_protection_rule':
@@ -108,7 +110,9 @@ function PostGithubEvent() {
         case 'pull_request_target':
             break;
         case 'push':
-            etitle = "Commits: " + context.payload["head_commit"]["id"] + " " + context.payload["head_commit"]["url"];
+            etitle = "Commits: [" + context.payload["head_commit"]["id"] + "](" + context.payload["compare"]+")";
+            status = context.payload["created"] == true ? "created": (context.payload["forced"] == true? "forced" : "");
+            detailurl = context.payload["compare"];
             break;
         case 'registry_package':
             break;
@@ -123,6 +127,8 @@ function PostGithubEvent() {
         case 'watch':
             //trigger at star started
             etitle = "Total stars: " + context.payload['stargazers_count'];
+            status = "stared";
+            detailurl = context.payload.repository?.html_url || "";
             break;
         case 'workflow_call':
             break;
@@ -141,19 +147,20 @@ function PostGithubEvent() {
             "type": "template",
             "data": {
                 "template_id": "AAqkeNyiypMLb",
-                "template_version_name": "1.0.3",
+                "template_version_name": "1.0.6",
                 "template_variable": {
                     "repo": "${repo}",
                     "eventType": "${eventType}",
                     "themeColor": "${color}",
-                    "actor": "${actor}",
+                    "auser": "${actor}",
+                    "avatar": "${avatar}",
                     "status": "${status}",
-                    "etitle": "${etitle}"
+                    "etitle": "${etitle}",
+                    "detailurl": "${detailurl}"
                 }
             }
         }
     }`
-    // console.log(msg)
     PostToFeishu(webhookId, msg);
 }
 
