@@ -1,6 +1,6 @@
 {
   "name": "feishu-bot-webhook-action",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "call webhook for custom feishu bot",
   "main": "dist/index.js",
   "scripts": {
@@ -11,7 +11,8 @@
   "keywords": [
     "bot",
     "feishu",
-    "lark"
+    "lark",
+    "trending"
   ],
   "author": "junka",
   "license": "ISC",

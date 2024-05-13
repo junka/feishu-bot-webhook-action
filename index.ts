@@ -2,6 +2,8 @@ import * as https from "https";
 import * as core from "@actions/core";
 import { context } from "@actions/github";
 import * as crypto from "crypto";
+import trend from './trend'
+
 
 function sign_with_timestamp(timestamp: number, key: string): string {
     const toencstr = `${timestamp}\n${key}`;
@@ -31,6 +33,29 @@ function PostToFeishu(id: string, content: string) {
     req.end();
 }
 
+
+function PostGithubTrending(webhookId, tm, sign): void {
+    trend().then(repos => {
+        const json = JSON.stringify(repos);
+        const msg = `{
+        "timestamp": "${tm}",
+        "sign": "${sign}",
+        "msg_type": "interactive",
+            "card": {
+                "type": "template",
+                "data": {
+                    "template_id": "AAqkpVra76ijV",
+                    "template_version_name": "1.0.0",
+                    "template_variable": {
+                        "object_list_1": ${json}
+                    }
+                }
+            }
+        }`
+        PostToFeishu(webhookId, msg);
+    });
+}
+
 function PostGithubEvent() {
     const webhook = core.getInput("webhook")
         ? core.getInput("webhook")
@@ -55,7 +80,7 @@ function PostGithubEvent() {
     var etitle = context.payload.issue?.html_url || context.payload.pull_request?.html_url
     var detailurl = ""
     const avatar = "img_v2_9dd98485-2900-4d65-ada9-e31d1408dcfg";
-
+    context.eventName = "schedule"
     switch (context.eventName) {
         case 'branch_protection_rule':
             break;
@@ -110,8 +135,8 @@ function PostGithubEvent() {
         case 'pull_request_target':
             break;
         case 'push':
-            etitle = "Commits: [" + context.payload["head_commit"]["id"] + "](" + context.payload["compare"]+")";
-            status = context.payload["created"] == true ? "created": (context.payload["forced"] == true? "forced" : "");
+            etitle = `Commits: ["${context.payload["head_commit"]["id"]}"]("${context.payload["compare"]}")`;
+            status = context.payload["created"] == true ? "created": (context.payload["forced"] == true? "force updated" : "");
             detailurl = context.payload["compare"];
             break;
         case 'registry_package':
@@ -121,12 +146,14 @@ function PostGithubEvent() {
         case 'repository_dispatch':
             break;
         case 'schedule':
-            break;
+            PostGithubTrending(webhookId, tm, sign);
+            return;
         case 'status':
             break;
         case 'watch':
             //trigger at star started
-            etitle = "Total stars: " + context.payload['stargazers_count'];
+            console.log(context.payload.repository)
+            etitle = "Total stars: " + context.payload.repository?.["stargazers_count"];
             status = "stared";
             detailurl = context.payload.repository?.html_url || "";
             break;

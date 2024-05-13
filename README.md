@@ -79,6 +79,8 @@ on:
   status:
   watch:
     types: [started]
+  schedule:
+    - cron: '30 2 * * *'
 
 jobs:
   send-event:
@@ -105,3 +107,6 @@ As you can see that in the example workflow yaml file, you need the following in
 Please configure ```FEISHU_BOT_WEBHOOK``` and ```FEISHU_BOT_SIGNKEY``` in the repo, ```Setting``` -> ```Secrets and variables``` -> ```Actions``` -> ```New Repository secrets```
 
 请在仓库的设置中配置```FEISHU_BOT_WEBHOOK```和 ```FEISHU_BOT_SIGNKEY``` , 路径```Setting``` -> ```Secrets and variables``` -> ```Actions``` -> ```New Repository secrets```.
+
+In the sample above ```schedule``` event will post github trending to bot every day at 2:30 UTC time.
+上面例子中配置的```schedule``` 事件会在每天UTC时间2:30发送github tredning到机器人。
