@@ -80,7 +80,6 @@ function PostGithubEvent() {
     var etitle = context.payload.issue?.html_url || context.payload.pull_request?.html_url
     var detailurl = ""
     const avatar = "img_v2_9dd98485-2900-4d65-ada9-e31d1408dcfg";
-    context.eventName = "schedule"
     switch (context.eventName) {
         case 'branch_protection_rule':
             break;

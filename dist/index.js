@@ -53643,7 +53643,6 @@ function PostGithubEvent() {
     var etitle = ((_b = github_1.context.payload.issue) === null || _b === void 0 ? void 0 : _b.html_url) || ((_c = github_1.context.payload.pull_request) === null || _c === void 0 ? void 0 : _c.html_url);
     var detailurl = "";
     const avatar = "img_v2_9dd98485-2900-4d65-ada9-e31d1408dcfg";
-    github_1.context.eventName = "schedule";
     switch (github_1.context.eventName) {
         case 'branch_protection_rule':
             break;
