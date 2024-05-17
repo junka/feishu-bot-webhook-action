@@ -1,6 +1,6 @@
 {
   "name": "feishu-bot-webhook-action",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "call webhook for custom feishu bot",
   "main": "dist/index.js",
   "scripts": {

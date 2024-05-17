@@ -53697,7 +53697,7 @@ function PostGithubEvent() {
         case 'pull_request_target':
             break;
         case 'push':
-            etitle = `Commits: ["${github_1.context.payload["head_commit"]["id"]}"]("${github_1.context.payload["compare"]}")`;
+            etitle = "Commits: " + github_1.context.payload["head_commit"]["id"];
             status = github_1.context.payload["created"] == true ? "created" : (github_1.context.payload["forced"] == true ? "force updated" : "");
             detailurl = github_1.context.payload["compare"];
             break;
