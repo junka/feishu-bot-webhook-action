@@ -110,3 +110,34 @@ Please configure ```FEISHU_BOT_WEBHOOK``` and ```FEISHU_BOT_SIGNKEY``` in the re
 
 In the sample above ```schedule``` event will post github trending to bot every day at 2:30 UTC time.
 上面例子中配置的```schedule``` 事件会在每天UTC时间2:30发送github tredning到机器人。
+
+#### For those who want to build your own card
+#### 建立自己的消息卡片
+
+you can fork the action and modify as below
+你可以fork项目并依据以下步骤修改
+
+- Create a card here https://open.feishu.cn/cardkit
+- 在这里新建一个卡片
+- replace the card template id and varibales in the code 
+- 替换代码中的卡片模版id和变量
+``` "card": {
+            "type": "template",
+            "data": {
+                "template_id": "AAqkeNyiypMLb",
+                "template_version_name": "1.0.6",
+                "template_variable": {
+                    "repo": "${repo}",
+                    "eventType": "${eventType}",
+                    "themeColor": "${color}",
+                    "auser": "${actor}",
+                    "avatar": "${avatar}",
+                    "status": "${status}",
+                    "etitle": "${etitle}",
+                    "detailurl": "${detailurl}"
+                }
+            }
+        }
+```
+This card is for event notification, there is another for github trending. You can modify that as you wish.
+这个卡片是做事件通知的，也有一个做github trending的卡片，你也可以安需要修改。
