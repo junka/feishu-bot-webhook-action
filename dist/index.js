@@ -53622,6 +53622,18 @@ function PostGithubTrending(webhookId, tm, sign) {
         PostToFeishu(webhookId, msg);
     });
 }
+function escape(str) {
+    return str
+        .replace(/[\\]/g, '\\\\')
+        .replace(/[\"]/g, '\\\"')
+        .replace(/[\/]/g, '\\/')
+        .replace(/[\b]/g, '\\b')
+        .replace(/[\f]/g, '\\f')
+        .replace(/[\n]/g, '\\n')
+        .replace(/[\r]/g, '\\r')
+        .replace(/[\t]/g, '\\t');
+}
+;
 function PostGithubEvent() {
     var _a, _b, _c, _d, _e;
     const webhook = core.getInput("webhook")
@@ -53697,7 +53709,8 @@ function PostGithubEvent() {
         case 'pull_request_target':
             break;
         case 'push':
-            etitle = "Commits: " + github_1.context.payload["head_commit"]["id"];
+            const head_commit = github_1.context.payload["head_commit"];
+            etitle = escape("Commits: [" + head_commit["id"] + "](" + head_commit["url"] + ")\n\n" + head_commit["message"]);
             status = github_1.context.payload["created"] == true ? "created" : (github_1.context.payload["forced"] == true ? "force updated" : "");
             detailurl = github_1.context.payload["compare"];
             break;
@@ -53734,7 +53747,7 @@ function PostGithubEvent() {
             "type": "template",
             "data": {
                 "template_id": "AAqkeNyiypMLb",
-                "template_version_name": "1.0.6",
+                "template_version_name": "1.0.7",
                 "template_variable": {
                     "repo": "${repo}",
                     "eventType": "${eventType}",
