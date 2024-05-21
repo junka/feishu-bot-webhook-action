@@ -1,19 +1,19 @@
-name: 'Github Events To Feishu Bot Action'
-description: 'send message to feishu bot'
-author: 'junka'
+name: "Github Events To Feishu Bot Action"
+description: "send message to feishu bot"
+author: "junka"
 branding:
-  icon: 'cloud-snow'
-  color: 'blue'
+  icon: "cloud-snow"
+  color: "blue"
 inputs:
   webhook:
-    description: 'feishu bot webhook url'
+    description: "feishu bot webhook url"
     required: true
   signkey:
-    description: 'set when you enable signature verify'
+    description: "set when you enable signature verify"
     required: false
 outputs:
   code:
-    description: 'code from response'
+    description: "code from response"
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
+  using: "node20"
+  main: "dist/index.js"
