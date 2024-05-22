@@ -1,5 +1,8 @@
 ## feishu-bot-webhook-action
 
+![CI](https://github.com/junka/feishu-bot-webhook-action/actions/workflows/ci.yml/badge.svg)
+[![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
+
 - What is this for?
   Send Github events to Feishu Bot, but in the format that Feishu recognises.
 

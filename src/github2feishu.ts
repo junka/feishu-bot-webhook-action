@@ -43,7 +43,7 @@ export async function PostGithubEvent(): Promise<number | undefined> {
     case "branch_protection_rule":
       const rule = context.payload.rule;
       etitle = rule.name + ":\n" + JSON.stringify(rule);
-      status = context.action;
+      status = context.payload.action || "created";
       detailurl = context.payload.repository?.html_url || "";
       break;
     case "check_run":
