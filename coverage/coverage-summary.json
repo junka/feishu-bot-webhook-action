@@ -1,9 +1,9 @@
 {
   "total": {
-    "lines": { "total": 130, "covered": 78, "skipped": 0, "pct": 60 },
-    "statements": { "total": 130, "covered": 78, "skipped": 0, "pct": 60 },
+    "lines": { "total": 140, "covered": 77, "skipped": 0, "pct": 55 },
+    "statements": { "total": 140, "covered": 77, "skipped": 0, "pct": 55 },
     "functions": { "total": 14, "covered": 10, "skipped": 0, "pct": 71.42 },
-    "branches": { "total": 97, "covered": 28, "skipped": 0, "pct": 28.86 },
+    "branches": { "total": 119, "covered": 27, "skipped": 0, "pct": 22.68 },
     "branchesTrue": { "total": 0, "covered": 0, "skipped": 0, "pct": "Unknown" }
   },
   "/Users/admin/proj/github/feishu-bot-webhook-action/src/card.ts": {
@@ -19,10 +19,10 @@
     "branches": { "total": 0, "covered": 0, "skipped": 0, "pct": 100 }
   },
   "/Users/admin/proj/github/feishu-bot-webhook-action/src/github2feishu.ts": {
-    "lines": { "total": 78, "covered": 30, "skipped": 0, "pct": 38.46 },
+    "lines": { "total": 88, "covered": 29, "skipped": 0, "pct": 32.95 },
     "functions": { "total": 3, "covered": 1, "skipped": 0, "pct": 33.33 },
-    "statements": { "total": 78, "covered": 30, "skipped": 0, "pct": 38.46 },
-    "branches": { "total": 88, "covered": 23, "skipped": 0, "pct": 26.13 }
+    "statements": { "total": 88, "covered": 29, "skipped": 0, "pct": 32.95 },
+    "branches": { "total": 110, "covered": 22, "skipped": 0, "pct": 20 }
   },
   "/Users/admin/proj/github/feishu-bot-webhook-action/src/index.ts": {
     "lines": { "total": 2, "covered": 2, "skipped": 0, "pct": 100 },

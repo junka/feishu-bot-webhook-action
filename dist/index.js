@@ -42683,14 +42683,13 @@ function PostGithubTrending(webhookId, timestamp, sign) {
     return __awaiter(this, void 0, void 0, function* () {
         return (0, trend_1.default)().then((repos) => {
             const cardmsg = (0, card_1.BuildGithubTrendingCard)(timestamp, sign, repos);
-            console.log(cardmsg);
             return (0, feishu_1.PostToFeishu)(webhookId, cardmsg);
         });
     });
 }
 function PostGithubEvent() {
     return __awaiter(this, void 0, void 0, function* () {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         const webhook = core.getInput("webhook")
             ? core.getInput("webhook")
             : process.env.FEISHU_BOT_WEBHOOK || "";
@@ -42712,14 +42711,30 @@ function PostGithubEvent() {
         var detailurl = "";
         switch (eventType) {
             case "branch_protection_rule":
+                const rule = github_1.context.payload.rule;
+                etitle = rule.name + ":\n" + JSON.stringify(rule);
+                status = github_1.context.action;
+                detailurl = ((_d = github_1.context.payload.repository) === null || _d === void 0 ? void 0 : _d.html_url) || "";
                 break;
             case "check_run":
                 break;
             case "check_suite":
                 break;
             case "create":
+                etitle =
+                    (github_1.context.payload["ref_type"] === "tag" ? "create tag" : "create") +
+                        "\n\n" +
+                        github_1.context.payload["ref"];
+                status = "create";
+                detailurl = ((_e = github_1.context.payload.repository) === null || _e === void 0 ? void 0 : _e.html_url) || "";
                 break;
             case "delete":
+                etitle =
+                    (github_1.context.payload["ref_type"] === "tag" ? "delete tag" : "delete") +
+                        "\n\n" +
+                        github_1.context.payload["ref"];
+                status = "delete";
+                detailurl = ((_f = github_1.context.payload.repository) === null || _f === void 0 ? void 0 : _f.html_url) || "";
                 break;
             case "deployment":
                 break;
@@ -42811,9 +42826,9 @@ function PostGithubEvent() {
             case "watch":
                 console.log(github_1.context.payload.repository);
                 etitle =
-                    "Total stars: " + ((_d = github_1.context.payload.repository) === null || _d === void 0 ? void 0 : _d["stargazers_count"]);
+                    "Total stars: " + ((_g = github_1.context.payload.repository) === null || _g === void 0 ? void 0 : _g["stargazers_count"]);
                 status = "stared";
-                detailurl = ((_e = github_1.context.payload.repository) === null || _e === void 0 ? void 0 : _e.html_url) || "";
+                detailurl = ((_h = github_1.context.payload.repository) === null || _h === void 0 ? void 0 : _h.html_url) || "";
                 break;
             case "workflow_call":
                 break;
@@ -42826,7 +42841,6 @@ function PostGithubEvent() {
         }
         const color = "blue";
         const cardmsg = (0, card_1.BuildGithubNotificationCard)(tm, sign, repo, eventType, color, actor, status, etitle, detailurl);
-        console.log(cardmsg);
         return (0, feishu_1.PostToFeishu)(webhookId, cardmsg);
     });
 }

@@ -11,7 +11,6 @@ async function PostGithubTrending(
 ): Promise<number | undefined> {
   return getTrending().then((repos) => {
     const cardmsg = BuildGithubTrendingCard(timestamp, sign, repos);
-    console.log(cardmsg);
     return PostToFeishu(webhookId, cardmsg);
   });
 }
@@ -42,14 +41,30 @@ export async function PostGithubEvent(): Promise<number | undefined> {
   var detailurl = "";
   switch (eventType) {
     case "branch_protection_rule":
+      const rule = context.payload.rule;
+      etitle = rule.name + ":\n" + JSON.stringify(rule);
+      status = context.action;
+      detailurl = context.payload.repository?.html_url || "";
       break;
     case "check_run":
       break;
     case "check_suite":
       break;
     case "create":
+      etitle =
+        (context.payload["ref_type"] === "tag" ? "create tag" : "create") +
+        "\n\n" +
+        context.payload["ref"];
+      status = "create";
+      detailurl = context.payload.repository?.html_url || "";
       break;
     case "delete":
+      etitle =
+        (context.payload["ref_type"] === "tag" ? "delete tag" : "delete") +
+        "\n\n" +
+        context.payload["ref"];
+      status = "delete";
+      detailurl = context.payload.repository?.html_url || "";
       break;
     case "deployment":
       break;
@@ -172,6 +187,5 @@ export async function PostGithubEvent(): Promise<number | undefined> {
     etitle,
     detailurl,
   );
-  console.log(cardmsg);
   return PostToFeishu(webhookId, cardmsg);
 }

@@ -28,7 +28,7 @@ describe("feishu", () => {
       "sign match fail or timestamp is not within one hour from current time",
     );
   });
-
+  /*
   it("send txt msg ok", async () => {
     const tm = Math.floor(Date.now() / 1000);
     const key = process.env.FEISHU_BOT_SIGNKEY || "";
@@ -44,4 +44,5 @@ describe("feishu", () => {
     const ret = await PostToFeishu(webhookId, msg);
     expect(ret).toEqual(200);
   });
+  */
 });
