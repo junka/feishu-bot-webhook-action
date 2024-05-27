@@ -76,7 +76,7 @@ on:
   pull_request_target:
     types: [assigned, opened, synchronize, reopened]
   push:
-    branch: ["main"]
+    branches: ["main"]
   registry_package:
     types: [published]
   release:

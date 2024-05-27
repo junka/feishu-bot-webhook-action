@@ -79,8 +79,35 @@ export async function PostGithubEvent(): Promise<number | undefined> {
     case "gollum":
       break;
     case "issue_comment":
+      const comment = context.payload.comment;
+      etitle =
+        "[No." +
+        context.payload.issue?.number +
+        " " +
+        context.payload.issue?.title +
+        "](" +
+        context.payload.issue?.html_url +
+        ")" +
+        "\n\n" +
+        comment?.body +
+        "\n\n" +
+        "";
+      detailurl = comment?.html_url || "";
       break;
     case "issue":
+      const issue = context.payload.issue;
+      etitle =
+        "[No." +
+        issue?.number +
+        " " +
+        issue?.title +
+        "](" +
+        issue?.html_url +
+        ")" +
+        "\n\n" +
+        issue?.body +
+        "\n\n";
+      detailurl = issue?.html_url || "";
       break;
     case "label":
       break;

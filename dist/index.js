@@ -47902,7 +47902,7 @@ ${pendingInterceptorsFormatter.format(pending)}
       }
       function PostGithubEvent() {
         return __awaiter(this, void 0, void 0, function* () {
-          var _a, _b, _c, _d, _e, _f, _g, _h;
+          var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
           const webhook = core.getInput("webhook")
             ? core.getInput("webhook")
             : process.env.FEISHU_BOT_WEBHOOK || "";
@@ -47988,8 +47988,49 @@ ${pendingInterceptorsFormatter.format(pending)}
             case "gollum":
               break;
             case "issue_comment":
+              const comment = github_1.context.payload.comment;
+              etitle =
+                "[No." +
+                ((_g = github_1.context.payload.issue) === null || _g === void 0
+                  ? void 0
+                  : _g.number) +
+                " " +
+                ((_h = github_1.context.payload.issue) === null || _h === void 0
+                  ? void 0
+                  : _h.title) +
+                "](" +
+                ((_j = github_1.context.payload.issue) === null || _j === void 0
+                  ? void 0
+                  : _j.html_url) +
+                ")" +
+                "\n\n" +
+                (comment === null || comment === void 0
+                  ? void 0
+                  : comment.body) +
+                "\n\n" +
+                "";
+              detailurl =
+                (comment === null || comment === void 0
+                  ? void 0
+                  : comment.html_url) || "";
               break;
             case "issue":
+              const issue = github_1.context.payload.issue;
+              etitle =
+                "[No." +
+                (issue === null || issue === void 0 ? void 0 : issue.number) +
+                " " +
+                (issue === null || issue === void 0 ? void 0 : issue.title) +
+                "](" +
+                (issue === null || issue === void 0 ? void 0 : issue.html_url) +
+                ")" +
+                "\n\n" +
+                (issue === null || issue === void 0 ? void 0 : issue.body) +
+                "\n\n";
+              detailurl =
+                (issue === null || issue === void 0
+                  ? void 0
+                  : issue.html_url) || "";
               break;
             case "label":
               break;
@@ -48072,16 +48113,16 @@ ${pendingInterceptorsFormatter.format(pending)}
               console.log(github_1.context.payload.repository);
               etitle =
                 "Total stars: " +
-                ((_g = github_1.context.payload.repository) === null ||
-                _g === void 0
+                ((_k = github_1.context.payload.repository) === null ||
+                _k === void 0
                   ? void 0
-                  : _g["stargazers_count"]);
+                  : _k["stargazers_count"]);
               status = "stared";
               detailurl =
-                ((_h = github_1.context.payload.repository) === null ||
-                _h === void 0
+                ((_l = github_1.context.payload.repository) === null ||
+                _l === void 0
                   ? void 0
-                  : _h.html_url) || "";
+                  : _l.html_url) || "";
               break;
             case "workflow_call":
               break;
