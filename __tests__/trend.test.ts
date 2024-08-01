@@ -1,15 +1,15 @@
 /**
  * Unit tests for src/trend.ts
  */
-import getTrending from "../src/trend";
-import { expect } from "@jest/globals";
-import axios from "axios";
+import getTrending from '../src/trend'
+import { expect } from '@jest/globals'
+import axios from 'axios'
 
-jest.mock("axios");
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+jest.mock('axios')
+const mockedAxios = axios as jest.Mocked<typeof axios>
 
-describe("trend", () => {
-  it("should return an array of Repository", async () => {
+describe('trend', () => {
+  it('should return an array of Repository', async () => {
     const mockResponse = {
       data: `
 <!DOCTYPE html>
@@ -6934,293 +6934,293 @@ describe("trend", () => {
     <div id="js-global-screen-reader-notice" class="sr-only" aria-live="polite" aria-atomic="true" ></div>
     <div id="js-global-screen-reader-notice-assertive" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
   </body>
-</html>`,
-    };
-    mockedAxios.get.mockResolvedValueOnce(mockResponse);
-    const repos = await getTrending();
-    expect(mockedAxios.get).toHaveBeenCalledTimes(1);
-    expect(mockedAxios.get).toHaveBeenCalledWith(`https://github.com/trending`);
-    expect(repos).toHaveLength(25);
+</html>`
+    }
+    mockedAxios.get.mockResolvedValueOnce(mockResponse)
+    const repos = await getTrending()
+    expect(mockedAxios.get).toHaveBeenCalledTimes(1)
+    expect(mockedAxios.get).toHaveBeenCalledWith(`https://github.com/trending`)
+    expect(repos).toHaveLength(25)
     expect(repos).toEqual([
       {
-        author: "HigherOrderCO",
-        description: "A massively parallel, high-level programming language",
-        forks: "296",
-        href: "https://github.com/HigherOrderCO/Bend",
-        language: "Rust",
-        name: "Bend",
-        stars: "11786",
-        starsToday: "2666",
+        author: 'HigherOrderCO',
+        description: 'A massively parallel, high-level programming language',
+        forks: '296',
+        href: 'https://github.com/HigherOrderCO/Bend',
+        language: 'Rust',
+        name: 'Bend',
+        stars: '11786',
+        starsToday: '2666'
       },
       {
-        author: "neovim",
-        description: "Vim-fork focused on extensibility and usability",
-        forks: "5384",
-        href: "https://github.com/neovim/neovim",
-        language: "Vim Script",
-        name: "neovim",
-        stars: "77970",
-        starsToday: "198",
+        author: 'neovim',
+        description: 'Vim-fork focused on extensibility and usability',
+        forks: '5384',
+        href: 'https://github.com/neovim/neovim',
+        language: 'Vim Script',
+        name: 'neovim',
+        stars: '77970',
+        starsToday: '198'
       },
       {
-        author: "adrianhajdin",
-        description: "Modern & Minimal JS Mastery Portfolio",
-        forks: "99",
-        href: "https://github.com/adrianhajdin/portfolio",
-        language: "TypeScript",
-        name: "portfolio",
-        stars: "565",
-        starsToday: "178",
+        author: 'adrianhajdin',
+        description: 'Modern & Minimal JS Mastery Portfolio',
+        forks: '99',
+        href: 'https://github.com/adrianhajdin/portfolio',
+        language: 'TypeScript',
+        name: 'portfolio',
+        stars: '565',
+        starsToday: '178'
       },
       {
-        author: "TheOfficialFloW",
-        description: "PPPwn - PlayStation 4 PPPoE RCE",
-        forks: "317",
-        href: "https://github.com/TheOfficialFloW/PPPwn",
-        language: "Python",
-        name: "PPPwn",
-        stars: "2065",
-        starsToday: "107",
+        author: 'TheOfficialFloW',
+        description: 'PPPwn - PlayStation 4 PPPoE RCE',
+        forks: '317',
+        href: 'https://github.com/TheOfficialFloW/PPPwn',
+        language: 'Python',
+        name: 'PPPwn',
+        stars: '2065',
+        starsToday: '107'
       },
       {
-        author: "massgravel",
+        author: 'massgravel',
         description:
-          "A Windows and Office activator using HWID / Ohook / KMS38 / Online KMS activation methods, with a focus on open-source code and fewer antivirus detections.",
-        forks: "7757",
-        href: "https://github.com/massgravel/Microsoft-Activation-Scripts",
-        language: "Batchfile",
-        name: "Microsoft-Activation-Scripts",
-        stars: "79545",
-        starsToday: "164",
+          'A Windows and Office activator using HWID / Ohook / KMS38 / Online KMS activation methods, with a focus on open-source code and fewer antivirus detections.',
+        forks: '7757',
+        href: 'https://github.com/massgravel/Microsoft-Activation-Scripts',
+        language: 'Batchfile',
+        name: 'Microsoft-Activation-Scripts',
+        stars: '79545',
+        starsToday: '164'
       },
       {
-        author: "initia-labs",
-        description: "",
-        forks: "100",
-        href: "https://github.com/initia-labs/initia",
-        language: "Go",
-        name: "initia",
-        stars: "88",
-        starsToday: "13",
+        author: 'initia-labs',
+        description: '',
+        forks: '100',
+        href: 'https://github.com/initia-labs/initia',
+        language: 'Go',
+        name: 'initia',
+        stars: '88',
+        starsToday: '13'
       },
       {
-        author: "LayerZero-Labs",
-        description: "",
-        forks: "160",
-        href: "https://github.com/LayerZero-Labs/sybil-report",
-        language: "",
-        name: "sybil-report",
-        stars: "240",
-        starsToday: "34",
+        author: 'LayerZero-Labs',
+        description: '',
+        forks: '160',
+        href: 'https://github.com/LayerZero-Labs/sybil-report',
+        language: '',
+        name: 'sybil-report',
+        stars: '240',
+        starsToday: '34'
       },
       {
-        author: "mendableai",
+        author: 'mendableai',
         description:
-          "🔥 Turn entire websites into LLM-ready markdown or structured data. Scrape, crawl, search and extract with a single API.",
-        forks: "283",
-        href: "https://github.com/mendableai/firecrawl",
-        language: "TypeScript",
-        name: "firecrawl",
-        stars: "3791",
-        starsToday: "260",
+          '🔥 Turn entire websites into LLM-ready markdown or structured data. Scrape, crawl, search and extract with a single API.',
+        forks: '283',
+        href: 'https://github.com/mendableai/firecrawl',
+        language: 'TypeScript',
+        name: 'firecrawl',
+        stars: '3791',
+        starsToday: '260'
       },
       {
-        author: "mainmatter",
+        author: 'mainmatter',
         description:
-          "A self-paced course to learn Rust, one exercise at a time.",
-        forks: "208",
-        href: "https://github.com/mainmatter/100-exercises-to-learn-rust",
-        language: "Rust",
-        name: "100-exercises-to-learn-rust",
-        stars: "1562",
-        starsToday: "499",
+          'A self-paced course to learn Rust, one exercise at a time.',
+        forks: '208',
+        href: 'https://github.com/mainmatter/100-exercises-to-learn-rust',
+        language: 'Rust',
+        name: '100-exercises-to-learn-rust',
+        stars: '1562',
+        starsToday: '499'
       },
       {
-        author: "KAYOKG",
+        author: 'KAYOKG',
         description:
-          "📚 Biblioteca de livros essenciais da área da programação.",
-        forks: "403",
-        href: "https://github.com/KAYOKG/BibliotecaDev",
-        language: "",
-        name: "BibliotecaDev",
-        stars: "2284",
-        starsToday: "274",
+          '📚 Biblioteca de livros essenciais da área da programação.',
+        forks: '403',
+        href: 'https://github.com/KAYOKG/BibliotecaDev',
+        language: '',
+        name: 'BibliotecaDev',
+        stars: '2284',
+        starsToday: '274'
       },
       {
-        author: "iluwatar",
-        description: "Design patterns implemented in Java",
-        forks: "25986",
-        href: "https://github.com/iluwatar/java-design-patterns",
-        language: "Java",
-        name: "java-design-patterns",
-        stars: "86979",
-        starsToday: "168",
+        author: 'iluwatar',
+        description: 'Design patterns implemented in Java',
+        forks: '25986',
+        href: 'https://github.com/iluwatar/java-design-patterns',
+        language: 'Java',
+        name: 'java-design-patterns',
+        stars: '86979',
+        starsToday: '168'
       },
       {
-        author: "Raphire",
+        author: 'Raphire',
         description:
-          "A simple, easy to use powershell script to remove bloatware apps from windows, disable telemetry, bing in windows search aswell as perform various other changes to declutter and improve your windows experience. This script works for both windows 10 and windows 11.",
-        forks: "152",
-        href: "https://github.com/Raphire/Win11Debloat",
-        language: "PowerShell",
-        name: "Win11Debloat",
-        stars: "3273",
-        starsToday: "223",
+          'A simple, easy to use powershell script to remove bloatware apps from windows, disable telemetry, bing in windows search aswell as perform various other changes to declutter and improve your windows experience. This script works for both windows 10 and windows 11.',
+        forks: '152',
+        href: 'https://github.com/Raphire/Win11Debloat',
+        language: 'PowerShell',
+        name: 'Win11Debloat',
+        stars: '3273',
+        starsToday: '223'
       },
       {
-        author: "HigherOrderCO",
-        description: "A massively parallel, optimal functional runtime in Rust",
-        forks: "353",
-        href: "https://github.com/HigherOrderCO/HVM",
-        language: "Cuda",
-        name: "HVM",
-        stars: "9590",
-        starsToday: "685",
+        author: 'HigherOrderCO',
+        description: 'A massively parallel, optimal functional runtime in Rust',
+        forks: '353',
+        href: 'https://github.com/HigherOrderCO/HVM',
+        language: 'Cuda',
+        name: 'HVM',
+        stars: '9590',
+        starsToday: '685'
       },
       {
-        author: "rasbt",
+        author: 'rasbt',
         description:
-          "Implementing a ChatGPT-like LLM in PyTorch from scratch, step by step",
-        forks: "1528",
-        href: "https://github.com/rasbt/LLMs-from-scratch",
-        language: "Jupyter Notebook",
-        name: "LLMs-from-scratch",
-        stars: "16679",
-        starsToday: "71",
+          'Implementing a ChatGPT-like LLM in PyTorch from scratch, step by step',
+        forks: '1528',
+        href: 'https://github.com/rasbt/LLMs-from-scratch',
+        language: 'Jupyter Notebook',
+        name: 'LLMs-from-scratch',
+        stars: '16679',
+        starsToday: '71'
       },
       {
-        author: "rashadphz",
-        description: "🔍 AI search engine - self-host with local or cloud LLMs",
-        forks: "54",
-        href: "https://github.com/rashadphz/farfalle",
-        language: "TypeScript",
-        name: "farfalle",
-        stars: "657",
-        starsToday: "296",
+        author: 'rashadphz',
+        description: '🔍 AI search engine - self-host with local or cloud LLMs',
+        forks: '54',
+        href: 'https://github.com/rashadphz/farfalle',
+        language: 'TypeScript',
+        name: 'farfalle',
+        stars: '657',
+        starsToday: '296'
       },
       {
-        author: "LazyVim",
-        description: "Neovim config for the lazy",
-        forks: "902",
-        href: "https://github.com/LazyVim/LazyVim",
-        language: "Lua",
-        name: "LazyVim",
-        stars: "13504",
-        starsToday: "128",
+        author: 'LazyVim',
+        description: 'Neovim config for the lazy',
+        forks: '902',
+        href: 'https://github.com/LazyVim/LazyVim',
+        language: 'Lua',
+        name: 'LazyVim',
+        stars: '13504',
+        starsToday: '128'
       },
       {
-        author: "arendst",
+        author: 'arendst',
         description:
-          "Alternative firmware for ESP8266 and ESP32 based devices with easy configuration using webUI, OTA updates, automation using timers or rules, expandability and entirely local control over MQTT, HTTP, Serial or KNX. Full documentation at",
-        forks: "4685",
-        href: "https://github.com/arendst/Tasmota",
-        language: "C",
-        name: "Tasmota",
-        stars: "21535",
-        starsToday: "12",
+          'Alternative firmware for ESP8266 and ESP32 based devices with easy configuration using webUI, OTA updates, automation using timers or rules, expandability and entirely local control over MQTT, HTTP, Serial or KNX. Full documentation at',
+        forks: '4685',
+        href: 'https://github.com/arendst/Tasmota',
+        language: 'C',
+        name: 'Tasmota',
+        stars: '21535',
+        starsToday: '12'
       },
       {
-        author: "xbmc",
+        author: 'xbmc',
         description:
           "Kodi is an award-winning free and open source home theater/media center software and entertainment hub for digital media. With its beautiful interface and powerful skinning engine, it's available for Android, BSD, Linux, macOS, iOS, tvOS and Windows.",
-        forks: "6243",
-        href: "https://github.com/xbmc/xbmc",
-        language: "C++",
-        name: "xbmc",
-        stars: "17715",
-        starsToday: "16",
+        forks: '6243',
+        href: 'https://github.com/xbmc/xbmc',
+        language: 'C++',
+        name: 'xbmc',
+        stars: '17715',
+        starsToday: '16'
       },
       {
-        author: "folke",
+        author: 'folke',
         description:
-          "🏙 A clean, dark Neovim theme written in Lua, with support for lsp, treesitter and lots of plugins. Includes additional themes for Kitty, Alacritty, iTerm and Fish.",
-        forks: "352",
-        href: "https://github.com/folke/tokyonight.nvim",
-        language: "Lua",
-        name: "tokyonight.nvim",
-        stars: "5338",
-        starsToday: "23",
+          '🏙 A clean, dark Neovim theme written in Lua, with support for lsp, treesitter and lots of plugins. Includes additional themes for Kitty, Alacritty, iTerm and Fish.',
+        forks: '352',
+        href: 'https://github.com/folke/tokyonight.nvim',
+        language: 'Lua',
+        name: 'tokyonight.nvim',
+        stars: '5338',
+        starsToday: '23'
       },
       {
-        author: "bepass-org",
+        author: 'bepass-org',
         description:
-          "Oblivion Desktop - Unofficial Warp Client for Windows/Mac/Linux",
-        forks: "236",
-        href: "https://github.com/bepass-org/oblivion-desktop",
-        language: "TypeScript",
-        name: "oblivion-desktop",
-        stars: "2004",
-        starsToday: "340",
+          'Oblivion Desktop - Unofficial Warp Client for Windows/Mac/Linux',
+        forks: '236',
+        href: 'https://github.com/bepass-org/oblivion-desktop',
+        language: 'TypeScript',
+        name: 'oblivion-desktop',
+        stars: '2004',
+        starsToday: '340'
       },
       {
-        author: "neovim",
-        description: "Quickstart configs for Nvim LSP",
-        forks: "2014",
-        href: "https://github.com/neovim/nvim-lspconfig",
-        language: "Lua",
-        name: "nvim-lspconfig",
-        stars: "9671",
-        starsToday: "11",
+        author: 'neovim',
+        description: 'Quickstart configs for Nvim LSP',
+        forks: '2014',
+        href: 'https://github.com/neovim/nvim-lspconfig',
+        language: 'Lua',
+        name: 'nvim-lspconfig',
+        stars: '9671',
+        starsToday: '11'
       },
       {
-        author: "entropy-research",
-        description: "Devon: An open-source pair programmer",
-        forks: "84",
-        href: "https://github.com/entropy-research/Devon",
-        language: "Python",
-        name: "Devon",
-        stars: "1087",
-        starsToday: "247",
+        author: 'entropy-research',
+        description: 'Devon: An open-source pair programmer',
+        forks: '84',
+        href: 'https://github.com/entropy-research/Devon',
+        language: 'Python',
+        name: 'Devon',
+        stars: '1087',
+        starsToday: '247'
       },
       {
-        author: "mukel",
-        description: "Practical Llama 3 inference in Java",
-        forks: "10",
-        href: "https://github.com/mukel/llama3.java",
-        language: "Java",
-        name: "llama3.java",
-        stars: "163",
-        starsToday: "48",
+        author: 'mukel',
+        description: 'Practical Llama 3 inference in Java',
+        forks: '10',
+        href: 'https://github.com/mukel/llama3.java',
+        language: 'Java',
+        name: 'llama3.java',
+        stars: '163',
+        starsToday: '48'
       },
       {
-        author: "weaviate",
+        author: 'weaviate',
         description:
-          "Retrieval Augmented Generation (RAG) chatbot powered by Weaviate",
-        forks: "367",
-        href: "https://github.com/weaviate/Verba",
-        language: "Python",
-        name: "Verba",
-        stars: "3372",
-        starsToday: "353",
+          'Retrieval Augmented Generation (RAG) chatbot powered by Weaviate',
+        forks: '367',
+        href: 'https://github.com/weaviate/Verba',
+        language: 'Python',
+        name: 'Verba',
+        stars: '3372',
+        starsToday: '353'
       },
       {
-        author: "tiann",
-        description: "A Kernel based root solution for Android",
-        forks: "1368",
-        href: "https://github.com/tiann/KernelSU",
-        language: "Kotlin",
-        name: "KernelSU",
-        stars: "8456",
-        starsToday: "16",
-      },
-    ]);
-  });
+        author: 'tiann',
+        description: 'A Kernel based root solution for Android',
+        forks: '1368',
+        href: 'https://github.com/tiann/KernelSU',
+        language: 'Kotlin',
+        name: 'KernelSU',
+        stars: '8456',
+        starsToday: '16'
+      }
+    ])
+  })
 
-  it("should throw error when fails", async () => {
+  it('should throw error when fails', async () => {
     const errorValue = {
       response: {
         status: 500,
-        statusText: "Internal Server Error",
+        statusText: 'Internal Server Error',
         data: {
           error: {
-            message: "Network Error",
-          },
-        },
-      },
-    };
-    mockedAxios.get.mockRejectedValueOnce(errorValue);
-    await expect(getTrending()).rejects.toThrow("Can't fetch trending repos");
+            message: 'Network Error'
+          }
+        }
+      }
+    }
+    mockedAxios.get.mockRejectedValueOnce(errorValue)
+    await expect(getTrending()).rejects.toThrow("Can't fetch trending repos")
 
-    expect(mockedAxios.get).toHaveBeenCalledTimes(1);
-  });
-});
+    expect(mockedAxios.get).toHaveBeenCalledTimes(1)
+  })
+})

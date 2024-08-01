@@ -100,3 +100,4 @@ __tests__/runner/*
 .idea
 .vscode
 *.code-workspace
+node_modules

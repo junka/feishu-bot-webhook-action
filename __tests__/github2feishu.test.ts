@@ -1,28 +1,28 @@
-import { expect } from "@jest/globals";
+import { expect } from '@jest/globals'
 
-import * as core from "@actions/core";
-import { context } from "@actions/github";
-import * as main from "../src/github2feishu";
-import * as dotenv from "dotenv";
+import * as core from '@actions/core'
+import { context } from '@actions/github'
+import * as main from '../src/github2feishu'
+import * as dotenv from 'dotenv'
 
-dotenv.config({ path: [".env.local"] });
+dotenv.config({ path: ['.env.local'] })
 
-const runMock = jest.spyOn(main, "PostGithubEvent");
+const runMock = jest.spyOn(main, 'PostGithubEvent')
 
 // Mock the GitHub Actions core library
-let debugMock: jest.SpiedFunction<typeof core.debug>;
-let errorMock: jest.SpiedFunction<typeof core.error>;
-let setFailedMock: jest.SpiedFunction<typeof core.setFailed>;
-let setOutputMock: jest.SpiedFunction<typeof core.setOutput>;
+let debugMock: jest.SpiedFunction<typeof core.debug>
+let errorMock: jest.SpiedFunction<typeof core.error>
+// let setFailedMock: jest.SpiedFunction<typeof core.setFailed>
+// let setOutputMock: jest.SpiedFunction<typeof core.setOutput>
 
-describe("events and actions", () => {
+describe('events and actions', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.clearAllMocks()
     // Set the action's inputs as return values from core.getInput()
 
-    debugMock = jest.spyOn(core, "debug").mockImplementation();
-    errorMock = jest.spyOn(core, "error").mockImplementation();
-  });
+    debugMock = jest.spyOn(core, 'debug').mockImplementation()
+    errorMock = jest.spyOn(core, 'error').mockImplementation()
+  })
   /*
   it("push event", async () => {
     const pushevent = {
@@ -1216,34 +1216,34 @@ describe("events and actions", () => {
     expect(errorMock).not.toHaveBeenCalled();
   });
   */
-  it("issue open event", async () => {
+  it('issue open event', async () => {
     const issueevent = {
-      action: "opened",
+      action: 'opened',
       issue: {
         active_lock_reason: null,
         assignee: null,
         assignees: [],
-        author_association: "OWNER",
-        body: "we need it",
+        author_association: 'OWNER',
+        body: 'we need it',
         closed_at: null,
         comments: 0,
         comments_url:
-          "https://api.github.com/repos/junka/pycbpf/issues/1/comments",
-        created_at: "2024-05-27T11:44:36Z",
-        events_url: "https://api.github.com/repos/junka/pycbpf/issues/1/events",
-        html_url: "https://github.com/junka/pycbpf/issues/1",
+          'https://api.github.com/repos/junka/pycbpf/issues/1/comments',
+        created_at: '2024-05-27T11:44:36Z',
+        events_url: 'https://api.github.com/repos/junka/pycbpf/issues/1/events',
+        html_url: 'https://github.com/junka/pycbpf/issues/1',
         id: 2318960959,
         labels: [],
         labels_url:
-          "https://api.github.com/repos/junka/pycbpf/issues/1/labels{/name}",
+          'https://api.github.com/repos/junka/pycbpf/issues/1/labels{/name}',
         locked: false,
         milestone: null,
-        node_id: "I_kwDOJlGsVc6KOIk_",
+        node_id: 'I_kwDOJlGsVc6KOIk_',
         number: 1,
         performed_via_github_app: null,
         reactions: {
-          "+1": 0,
-          "-1": 0,
+          '+1': 0,
+          '-1': 0,
           confused: 0,
           eyes: 0,
           heart: 0,
@@ -1251,221 +1251,221 @@ describe("events and actions", () => {
           laugh: 0,
           rocket: 0,
           total_count: 0,
-          url: "https://api.github.com/repos/junka/pycbpf/issues/1/reactions",
+          url: 'https://api.github.com/repos/junka/pycbpf/issues/1/reactions'
         },
-        repository_url: "https://api.github.com/repos/junka/pycbpf",
-        state: "open",
+        repository_url: 'https://api.github.com/repos/junka/pycbpf',
+        state: 'open',
         state_reason: null,
         timeline_url:
-          "https://api.github.com/repos/junka/pycbpf/issues/1/timeline",
-        title: "test issue",
-        updated_at: "2024-05-27T11:44:37Z",
-        url: "https://api.github.com/repos/junka/pycbpf/issues/1",
+          'https://api.github.com/repos/junka/pycbpf/issues/1/timeline',
+        title: 'test issue',
+        updated_at: '2024-05-27T11:44:37Z',
+        url: 'https://api.github.com/repos/junka/pycbpf/issues/1',
         user: {
-          avatar_url: "https://avatars.githubusercontent.com/u/2344498?v=4",
-          events_url: "https://api.github.com/users/junka/events{/privacy}",
-          followers_url: "https://api.github.com/users/junka/followers",
+          avatar_url: 'https://avatars.githubusercontent.com/u/2344498?v=4',
+          events_url: 'https://api.github.com/users/junka/events{/privacy}',
+          followers_url: 'https://api.github.com/users/junka/followers',
           following_url:
-            "https://api.github.com/users/junka/following{/other_user}",
-          gists_url: "https://api.github.com/users/junka/gists{/gist_id}",
-          gravatar_id: "",
-          html_url: "https://github.com/junka",
+            'https://api.github.com/users/junka/following{/other_user}',
+          gists_url: 'https://api.github.com/users/junka/gists{/gist_id}',
+          gravatar_id: '',
+          html_url: 'https://github.com/junka',
           id: 2344498,
-          login: "junka",
-          node_id: "MDQ6VXNlcjIzNDQ0OTg=",
-          organizations_url: "https://api.github.com/users/junka/orgs",
+          login: 'junka',
+          node_id: 'MDQ6VXNlcjIzNDQ0OTg=',
+          organizations_url: 'https://api.github.com/users/junka/orgs',
           received_events_url:
-            "https://api.github.com/users/junka/received_events",
-          repos_url: "https://api.github.com/users/junka/repos",
+            'https://api.github.com/users/junka/received_events',
+          repos_url: 'https://api.github.com/users/junka/repos',
           site_admin: false,
           starred_url:
-            "https://api.github.com/users/junka/starred{/owner}{/repo}",
-          subscriptions_url: "https://api.github.com/users/junka/subscriptions",
-          type: "User",
-          url: "https://api.github.com/users/junka",
-        },
+            'https://api.github.com/users/junka/starred{/owner}{/repo}',
+          subscriptions_url: 'https://api.github.com/users/junka/subscriptions',
+          type: 'User',
+          url: 'https://api.github.com/users/junka'
+        }
       },
       repository: {
         allow_forking: true,
         archive_url:
-          "https://api.github.com/repos/junka/pycbpf/{archive_format}{/ref}",
+          'https://api.github.com/repos/junka/pycbpf/{archive_format}{/ref}',
         archived: false,
         assignees_url:
-          "https://api.github.com/repos/junka/pycbpf/assignees{/user}",
-        blobs_url: "https://api.github.com/repos/junka/pycbpf/git/blobs{/sha}",
+          'https://api.github.com/repos/junka/pycbpf/assignees{/user}',
+        blobs_url: 'https://api.github.com/repos/junka/pycbpf/git/blobs{/sha}',
         branches_url:
-          "https://api.github.com/repos/junka/pycbpf/branches{/branch}",
-        clone_url: "https://github.com/junka/pycbpf.git",
+          'https://api.github.com/repos/junka/pycbpf/branches{/branch}',
+        clone_url: 'https://github.com/junka/pycbpf.git',
         collaborators_url:
-          "https://api.github.com/repos/junka/pycbpf/collaborators{/collaborator}",
+          'https://api.github.com/repos/junka/pycbpf/collaborators{/collaborator}',
         comments_url:
-          "https://api.github.com/repos/junka/pycbpf/comments{/number}",
-        commits_url: "https://api.github.com/repos/junka/pycbpf/commits{/sha}",
+          'https://api.github.com/repos/junka/pycbpf/comments{/number}',
+        commits_url: 'https://api.github.com/repos/junka/pycbpf/commits{/sha}',
         compare_url:
-          "https://api.github.com/repos/junka/pycbpf/compare/{base}...{head}",
+          'https://api.github.com/repos/junka/pycbpf/compare/{base}...{head}',
         contents_url:
-          "https://api.github.com/repos/junka/pycbpf/contents/{+path}",
+          'https://api.github.com/repos/junka/pycbpf/contents/{+path}',
         contributors_url:
-          "https://api.github.com/repos/junka/pycbpf/contributors",
-        created_at: "2023-05-19T15:10:31Z",
-        default_branch: "main",
+          'https://api.github.com/repos/junka/pycbpf/contributors',
+        created_at: '2023-05-19T15:10:31Z',
+        default_branch: 'main',
         deployments_url:
-          "https://api.github.com/repos/junka/pycbpf/deployments",
-        description: "python script which compile cbpf to C code for BCC",
+          'https://api.github.com/repos/junka/pycbpf/deployments',
+        description: 'python script which compile cbpf to C code for BCC',
         disabled: false,
-        downloads_url: "https://api.github.com/repos/junka/pycbpf/downloads",
-        events_url: "https://api.github.com/repos/junka/pycbpf/events",
+        downloads_url: 'https://api.github.com/repos/junka/pycbpf/downloads',
+        events_url: 'https://api.github.com/repos/junka/pycbpf/events',
         fork: false,
         forks: 0,
         forks_count: 0,
-        forks_url: "https://api.github.com/repos/junka/pycbpf/forks",
-        full_name: "junka/pycbpf",
+        forks_url: 'https://api.github.com/repos/junka/pycbpf/forks',
+        full_name: 'junka/pycbpf',
         git_commits_url:
-          "https://api.github.com/repos/junka/pycbpf/git/commits{/sha}",
+          'https://api.github.com/repos/junka/pycbpf/git/commits{/sha}',
         git_refs_url:
-          "https://api.github.com/repos/junka/pycbpf/git/refs{/sha}",
+          'https://api.github.com/repos/junka/pycbpf/git/refs{/sha}',
         git_tags_url:
-          "https://api.github.com/repos/junka/pycbpf/git/tags{/sha}",
-        git_url: "git://github.com/junka/pycbpf.git",
+          'https://api.github.com/repos/junka/pycbpf/git/tags{/sha}',
+        git_url: 'git://github.com/junka/pycbpf.git',
         has_discussions: false,
         has_downloads: true,
         has_issues: true,
         has_pages: false,
         has_projects: true,
         has_wiki: true,
-        homepage: "",
-        hooks_url: "https://api.github.com/repos/junka/pycbpf/hooks",
-        html_url: "https://github.com/junka/pycbpf",
+        homepage: '',
+        hooks_url: 'https://api.github.com/repos/junka/pycbpf/hooks',
+        html_url: 'https://github.com/junka/pycbpf',
         id: 642886741,
         is_template: false,
         issue_comment_url:
-          "https://api.github.com/repos/junka/pycbpf/issues/comments{/number}",
+          'https://api.github.com/repos/junka/pycbpf/issues/comments{/number}',
         issue_events_url:
-          "https://api.github.com/repos/junka/pycbpf/issues/events{/number}",
-        issues_url: "https://api.github.com/repos/junka/pycbpf/issues{/number}",
-        keys_url: "https://api.github.com/repos/junka/pycbpf/keys{/key_id}",
-        labels_url: "https://api.github.com/repos/junka/pycbpf/labels{/name}",
-        language: "Python",
-        languages_url: "https://api.github.com/repos/junka/pycbpf/languages",
+          'https://api.github.com/repos/junka/pycbpf/issues/events{/number}',
+        issues_url: 'https://api.github.com/repos/junka/pycbpf/issues{/number}',
+        keys_url: 'https://api.github.com/repos/junka/pycbpf/keys{/key_id}',
+        labels_url: 'https://api.github.com/repos/junka/pycbpf/labels{/name}',
+        language: 'Python',
+        languages_url: 'https://api.github.com/repos/junka/pycbpf/languages',
         license: {
-          key: "mit",
-          name: "MIT License",
-          node_id: "MDc6TGljZW5zZTEz",
-          spdx_id: "MIT",
-          url: "https://api.github.com/licenses/mit",
+          key: 'mit',
+          name: 'MIT License',
+          node_id: 'MDc6TGljZW5zZTEz',
+          spdx_id: 'MIT',
+          url: 'https://api.github.com/licenses/mit'
         },
-        merges_url: "https://api.github.com/repos/junka/pycbpf/merges",
+        merges_url: 'https://api.github.com/repos/junka/pycbpf/merges',
         milestones_url:
-          "https://api.github.com/repos/junka/pycbpf/milestones{/number}",
+          'https://api.github.com/repos/junka/pycbpf/milestones{/number}',
         mirror_url: null,
-        name: "pycbpf",
-        node_id: "R_kgDOJlGsVQ",
+        name: 'pycbpf',
+        node_id: 'R_kgDOJlGsVQ',
         notifications_url:
-          "https://api.github.com/repos/junka/pycbpf/notifications{?since,all,participating}",
+          'https://api.github.com/repos/junka/pycbpf/notifications{?since,all,participating}',
         open_issues: 1,
         open_issues_count: 1,
         owner: {
-          avatar_url: "https://avatars.githubusercontent.com/u/2344498?v=4",
-          events_url: "https://api.github.com/users/junka/events{/privacy}",
-          followers_url: "https://api.github.com/users/junka/followers",
+          avatar_url: 'https://avatars.githubusercontent.com/u/2344498?v=4',
+          events_url: 'https://api.github.com/users/junka/events{/privacy}',
+          followers_url: 'https://api.github.com/users/junka/followers',
           following_url:
-            "https://api.github.com/users/junka/following{/other_user}",
-          gists_url: "https://api.github.com/users/junka/gists{/gist_id}",
-          gravatar_id: "",
-          html_url: "https://github.com/junka",
+            'https://api.github.com/users/junka/following{/other_user}',
+          gists_url: 'https://api.github.com/users/junka/gists{/gist_id}',
+          gravatar_id: '',
+          html_url: 'https://github.com/junka',
           id: 2344498,
-          login: "junka",
-          node_id: "MDQ6VXNlcjIzNDQ0OTg=",
-          organizations_url: "https://api.github.com/users/junka/orgs",
+          login: 'junka',
+          node_id: 'MDQ6VXNlcjIzNDQ0OTg=',
+          organizations_url: 'https://api.github.com/users/junka/orgs',
           received_events_url:
-            "https://api.github.com/users/junka/received_events",
-          repos_url: "https://api.github.com/users/junka/repos",
+            'https://api.github.com/users/junka/received_events',
+          repos_url: 'https://api.github.com/users/junka/repos',
           site_admin: false,
           starred_url:
-            "https://api.github.com/users/junka/starred{/owner}{/repo}",
-          subscriptions_url: "https://api.github.com/users/junka/subscriptions",
-          type: "User",
-          url: "https://api.github.com/users/junka",
+            'https://api.github.com/users/junka/starred{/owner}{/repo}',
+          subscriptions_url: 'https://api.github.com/users/junka/subscriptions',
+          type: 'User',
+          url: 'https://api.github.com/users/junka'
         },
         private: false,
-        pulls_url: "https://api.github.com/repos/junka/pycbpf/pulls{/number}",
-        pushed_at: "2024-05-27T11:41:05Z",
-        releases_url: "https://api.github.com/repos/junka/pycbpf/releases{/id}",
+        pulls_url: 'https://api.github.com/repos/junka/pycbpf/pulls{/number}',
+        pushed_at: '2024-05-27T11:41:05Z',
+        releases_url: 'https://api.github.com/repos/junka/pycbpf/releases{/id}',
         size: 57,
-        ssh_url: "git@github.com:junka/pycbpf.git",
+        ssh_url: 'git@github.com:junka/pycbpf.git',
         stargazers_count: 0,
-        stargazers_url: "https://api.github.com/repos/junka/pycbpf/stargazers",
+        stargazers_url: 'https://api.github.com/repos/junka/pycbpf/stargazers',
         statuses_url:
-          "https://api.github.com/repos/junka/pycbpf/statuses/{sha}",
+          'https://api.github.com/repos/junka/pycbpf/statuses/{sha}',
         subscribers_url:
-          "https://api.github.com/repos/junka/pycbpf/subscribers",
+          'https://api.github.com/repos/junka/pycbpf/subscribers',
         subscription_url:
-          "https://api.github.com/repos/junka/pycbpf/subscription",
-        svn_url: "https://github.com/junka/pycbpf",
-        tags_url: "https://api.github.com/repos/junka/pycbpf/tags",
-        teams_url: "https://api.github.com/repos/junka/pycbpf/teams",
-        topics: ["bcc", "cbpf", "ebpf", "packet-capture", "tcpdump"],
-        trees_url: "https://api.github.com/repos/junka/pycbpf/git/trees{/sha}",
-        updated_at: "2024-05-27T11:41:08Z",
-        url: "https://api.github.com/repos/junka/pycbpf",
-        visibility: "public",
+          'https://api.github.com/repos/junka/pycbpf/subscription',
+        svn_url: 'https://github.com/junka/pycbpf',
+        tags_url: 'https://api.github.com/repos/junka/pycbpf/tags',
+        teams_url: 'https://api.github.com/repos/junka/pycbpf/teams',
+        topics: ['bcc', 'cbpf', 'ebpf', 'packet-capture', 'tcpdump'],
+        trees_url: 'https://api.github.com/repos/junka/pycbpf/git/trees{/sha}',
+        updated_at: '2024-05-27T11:41:08Z',
+        url: 'https://api.github.com/repos/junka/pycbpf',
+        visibility: 'public',
         watchers: 0,
         watchers_count: 0,
-        web_commit_signoff_required: false,
+        web_commit_signoff_required: false
       },
       sender: {
-        avatar_url: "https://avatars.githubusercontent.com/u/2344498?v=4",
-        events_url: "https://api.github.com/users/junka/events{/privacy}",
-        followers_url: "https://api.github.com/users/junka/followers",
+        avatar_url: 'https://avatars.githubusercontent.com/u/2344498?v=4',
+        events_url: 'https://api.github.com/users/junka/events{/privacy}',
+        followers_url: 'https://api.github.com/users/junka/followers',
         following_url:
-          "https://api.github.com/users/junka/following{/other_user}",
-        gists_url: "https://api.github.com/users/junka/gists{/gist_id}",
-        gravatar_id: "",
-        html_url: "https://github.com/junka",
+          'https://api.github.com/users/junka/following{/other_user}',
+        gists_url: 'https://api.github.com/users/junka/gists{/gist_id}',
+        gravatar_id: '',
+        html_url: 'https://github.com/junka',
         id: 2344498,
-        login: "junka",
-        node_id: "MDQ6VXNlcjIzNDQ0OTg=",
-        organizations_url: "https://api.github.com/users/junka/orgs",
+        login: 'junka',
+        node_id: 'MDQ6VXNlcjIzNDQ0OTg=',
+        organizations_url: 'https://api.github.com/users/junka/orgs',
         received_events_url:
-          "https://api.github.com/users/junka/received_events",
-        repos_url: "https://api.github.com/users/junka/repos",
+          'https://api.github.com/users/junka/received_events',
+        repos_url: 'https://api.github.com/users/junka/repos',
         site_admin: false,
         starred_url:
-          "https://api.github.com/users/junka/starred{/owner}{/repo}",
-        subscriptions_url: "https://api.github.com/users/junka/subscriptions",
-        type: "User",
-        url: "https://api.github.com/users/junka",
-      },
-    };
-    jest.replaceProperty(context, "payload", issueevent);
-    jest.replaceProperty(context, "eventName", "issue");
-    jest.replaceProperty(context, "actor", "nbody");
+          'https://api.github.com/users/junka/starred{/owner}{/repo}',
+        subscriptions_url: 'https://api.github.com/users/junka/subscriptions',
+        type: 'User',
+        url: 'https://api.github.com/users/junka'
+      }
+    }
+    jest.replaceProperty(context, 'payload', issueevent)
+    jest.replaceProperty(context, 'eventName', 'issue')
+    jest.replaceProperty(context, 'actor', 'nbody')
 
-    const resp = await main.PostGithubEvent();
-    expect(runMock).toHaveReturned();
-    expect(resp).toEqual(200);
-    expect(debugMock).toHaveBeenNthCalledWith(1, 0);
-    expect(debugMock).toHaveBeenNthCalledWith(2, "success");
+    const resp = await main.PostGithubEvent()
+    expect(runMock).toHaveReturned()
+    expect(resp).toEqual(200)
+    expect(debugMock).toHaveBeenNthCalledWith(1, 0)
+    expect(debugMock).toHaveBeenNthCalledWith(2, 'success')
 
-    expect(errorMock).not.toHaveBeenCalled();
-  });
+    expect(errorMock).not.toHaveBeenCalled()
+  })
 
-  it("issue comment event", async () => {
+  it('issue comment event', async () => {
     const issue_comment_event = {
-      action: "created",
+      action: 'created',
       comment: {
-        author_association: "OWNER",
-        body: "heihei",
-        created_at: "2024-05-27T12:20:43Z",
+        author_association: 'OWNER',
+        body: 'heihei',
+        created_at: '2024-05-27T12:20:43Z',
         html_url:
-          "https://github.com/junka/pycbpf/issues/1#issuecomment-2133366811",
+          'https://github.com/junka/pycbpf/issues/1#issuecomment-2133366811',
         id: 2133366811,
-        issue_url: "https://api.github.com/repos/junka/pycbpf/issues/1",
-        node_id: "IC_kwDOJlGsVc5_KJgb",
+        issue_url: 'https://api.github.com/repos/junka/pycbpf/issues/1',
+        node_id: 'IC_kwDOJlGsVc5_KJgb',
         performed_via_github_app: null,
         reactions: {
-          "+1": 0,
-          "-1": 0,
+          '+1': 0,
+          '-1': 0,
           confused: 0,
           eyes: 0,
           heart: 0,
@@ -1473,81 +1473,81 @@ describe("events and actions", () => {
           laugh: 0,
           rocket: 0,
           total_count: 0,
-          url: "https://api.github.com/repos/junka/pycbpf/issues/comments/2133366811/reactions",
+          url: 'https://api.github.com/repos/junka/pycbpf/issues/comments/2133366811/reactions'
         },
-        updated_at: "2024-05-27T12:20:43Z",
-        url: "https://api.github.com/repos/junka/pycbpf/issues/comments/2133366811",
+        updated_at: '2024-05-27T12:20:43Z',
+        url: 'https://api.github.com/repos/junka/pycbpf/issues/comments/2133366811',
         user: {
-          avatar_url: "https://avatars.githubusercontent.com/u/2344498?v=4",
-          events_url: "https://api.github.com/users/junka/events{/privacy}",
-          followers_url: "https://api.github.com/users/junka/followers",
+          avatar_url: 'https://avatars.githubusercontent.com/u/2344498?v=4',
+          events_url: 'https://api.github.com/users/junka/events{/privacy}',
+          followers_url: 'https://api.github.com/users/junka/followers',
           following_url:
-            "https://api.github.com/users/junka/following{/other_user}",
-          gists_url: "https://api.github.com/users/junka/gists{/gist_id}",
-          gravatar_id: "",
-          html_url: "https://github.com/junka",
+            'https://api.github.com/users/junka/following{/other_user}',
+          gists_url: 'https://api.github.com/users/junka/gists{/gist_id}',
+          gravatar_id: '',
+          html_url: 'https://github.com/junka',
           id: 2344498,
-          login: "junka",
-          node_id: "MDQ6VXNlcjIzNDQ0OTg=",
-          organizations_url: "https://api.github.com/users/junka/orgs",
+          login: 'junka',
+          node_id: 'MDQ6VXNlcjIzNDQ0OTg=',
+          organizations_url: 'https://api.github.com/users/junka/orgs',
           received_events_url:
-            "https://api.github.com/users/junka/received_events",
-          repos_url: "https://api.github.com/users/junka/repos",
+            'https://api.github.com/users/junka/received_events',
+          repos_url: 'https://api.github.com/users/junka/repos',
           site_admin: false,
           starred_url:
-            "https://api.github.com/users/junka/starred{/owner}{/repo}",
-          subscriptions_url: "https://api.github.com/users/junka/subscriptions",
-          type: "User",
-          url: "https://api.github.com/users/junka",
-        },
+            'https://api.github.com/users/junka/starred{/owner}{/repo}',
+          subscriptions_url: 'https://api.github.com/users/junka/subscriptions',
+          type: 'User',
+          url: 'https://api.github.com/users/junka'
+        }
       },
       issue: {
         active_lock_reason: null,
         assignee: {
-          avatar_url: "https://avatars.githubusercontent.com/u/2344498?v=4",
-          events_url: "https://api.github.com/users/junka/events{/privacy}",
-          followers_url: "https://api.github.com/users/junka/followers",
+          avatar_url: 'https://avatars.githubusercontent.com/u/2344498?v=4',
+          events_url: 'https://api.github.com/users/junka/events{/privacy}',
+          followers_url: 'https://api.github.com/users/junka/followers',
           following_url:
-            "https://api.github.com/users/junka/following{/other_user}",
-          gists_url: "https://api.github.com/users/junka/gists{/gist_id}",
-          gravatar_id: "",
-          html_url: "https://github.com/junka",
+            'https://api.github.com/users/junka/following{/other_user}',
+          gists_url: 'https://api.github.com/users/junka/gists{/gist_id}',
+          gravatar_id: '',
+          html_url: 'https://github.com/junka',
           id: 2344498,
-          login: "junka",
-          node_id: "MDQ6VXNlcjIzNDQ0OTg=",
-          organizations_url: "https://api.github.com/users/junka/orgs",
+          login: 'junka',
+          node_id: 'MDQ6VXNlcjIzNDQ0OTg=',
+          organizations_url: 'https://api.github.com/users/junka/orgs',
           received_events_url:
-            "https://api.github.com/users/junka/received_events",
-          repos_url: "https://api.github.com/users/junka/repos",
+            'https://api.github.com/users/junka/received_events',
+          repos_url: 'https://api.github.com/users/junka/repos',
           site_admin: false,
           starred_url:
-            "https://api.github.com/users/junka/starred{/owner}{/repo}",
-          subscriptions_url: "https://api.github.com/users/junka/subscriptions",
-          type: "User",
-          url: "https://api.github.com/users/junka",
+            'https://api.github.com/users/junka/starred{/owner}{/repo}',
+          subscriptions_url: 'https://api.github.com/users/junka/subscriptions',
+          type: 'User',
+          url: 'https://api.github.com/users/junka'
         },
         assignees: [[Object]],
-        author_association: "OWNER",
-        body: "we need it",
+        author_association: 'OWNER',
+        body: 'we need it',
         closed_at: null,
         comments: 2,
         comments_url:
-          "https://api.github.com/repos/junka/pycbpf/issues/1/comments",
-        created_at: "2024-05-27T11:44:36Z",
-        events_url: "https://api.github.com/repos/junka/pycbpf/issues/1/events",
-        html_url: "https://github.com/junka/pycbpf/issues/1",
+          'https://api.github.com/repos/junka/pycbpf/issues/1/comments',
+        created_at: '2024-05-27T11:44:36Z',
+        events_url: 'https://api.github.com/repos/junka/pycbpf/issues/1/events',
+        html_url: 'https://github.com/junka/pycbpf/issues/1',
         id: 2318960959,
         labels: [[Object], [Object]],
         labels_url:
-          "https://api.github.com/repos/junka/pycbpf/issues/1/labels{/name}",
+          'https://api.github.com/repos/junka/pycbpf/issues/1/labels{/name}',
         locked: false,
         milestone: null,
-        node_id: "I_kwDOJlGsVc6KOIk_",
+        node_id: 'I_kwDOJlGsVc6KOIk_',
         number: 1,
         performed_via_github_app: null,
         reactions: {
-          "+1": 0,
-          "-1": 0,
+          '+1': 0,
+          '-1': 0,
           confused: 0,
           eyes: 0,
           heart: 0,
@@ -1555,203 +1555,203 @@ describe("events and actions", () => {
           laugh: 0,
           rocket: 0,
           total_count: 0,
-          url: "https://api.github.com/repos/junka/pycbpf/issues/1/reactions",
+          url: 'https://api.github.com/repos/junka/pycbpf/issues/1/reactions'
         },
-        repository_url: "https://api.github.com/repos/junka/pycbpf",
-        state: "open",
+        repository_url: 'https://api.github.com/repos/junka/pycbpf',
+        state: 'open',
         state_reason: null,
         timeline_url:
-          "https://api.github.com/repos/junka/pycbpf/issues/1/timeline",
-        title: "test issue",
-        updated_at: "2024-05-27T12:20:44Z",
-        url: "https://api.github.com/repos/junka/pycbpf/issues/1",
+          'https://api.github.com/repos/junka/pycbpf/issues/1/timeline',
+        title: 'test issue',
+        updated_at: '2024-05-27T12:20:44Z',
+        url: 'https://api.github.com/repos/junka/pycbpf/issues/1',
         user: {
-          avatar_url: "https://avatars.githubusercontent.com/u/2344498?v=4",
-          events_url: "https://api.github.com/users/junka/events{/privacy}",
-          followers_url: "https://api.github.com/users/junka/followers",
+          avatar_url: 'https://avatars.githubusercontent.com/u/2344498?v=4',
+          events_url: 'https://api.github.com/users/junka/events{/privacy}',
+          followers_url: 'https://api.github.com/users/junka/followers',
           following_url:
-            "https://api.github.com/users/junka/following{/other_user}",
-          gists_url: "https://api.github.com/users/junka/gists{/gist_id}",
-          gravatar_id: "",
-          html_url: "https://github.com/junka",
+            'https://api.github.com/users/junka/following{/other_user}',
+          gists_url: 'https://api.github.com/users/junka/gists{/gist_id}',
+          gravatar_id: '',
+          html_url: 'https://github.com/junka',
           id: 2344498,
-          login: "junka",
-          node_id: "MDQ6VXNlcjIzNDQ0OTg=",
-          organizations_url: "https://api.github.com/users/junka/orgs",
+          login: 'junka',
+          node_id: 'MDQ6VXNlcjIzNDQ0OTg=',
+          organizations_url: 'https://api.github.com/users/junka/orgs',
           received_events_url:
-            "https://api.github.com/users/junka/received_events",
-          repos_url: "https://api.github.com/users/junka/repos",
+            'https://api.github.com/users/junka/received_events',
+          repos_url: 'https://api.github.com/users/junka/repos',
           site_admin: false,
           starred_url:
-            "https://api.github.com/users/junka/starred{/owner}{/repo}",
-          subscriptions_url: "https://api.github.com/users/junka/subscriptions",
-          type: "User",
-          url: "https://api.github.com/users/junka",
-        },
+            'https://api.github.com/users/junka/starred{/owner}{/repo}',
+          subscriptions_url: 'https://api.github.com/users/junka/subscriptions',
+          type: 'User',
+          url: 'https://api.github.com/users/junka'
+        }
       },
       repository: {
         allow_forking: true,
         archive_url:
-          "https://api.github.com/repos/junka/pycbpf/{archive_format}{/ref}",
+          'https://api.github.com/repos/junka/pycbpf/{archive_format}{/ref}',
         archived: false,
         assignees_url:
-          "https://api.github.com/repos/junka/pycbpf/assignees{/user}",
-        blobs_url: "https://api.github.com/repos/junka/pycbpf/git/blobs{/sha}",
+          'https://api.github.com/repos/junka/pycbpf/assignees{/user}',
+        blobs_url: 'https://api.github.com/repos/junka/pycbpf/git/blobs{/sha}',
         branches_url:
-          "https://api.github.com/repos/junka/pycbpf/branches{/branch}",
-        clone_url: "https://github.com/junka/pycbpf.git",
+          'https://api.github.com/repos/junka/pycbpf/branches{/branch}',
+        clone_url: 'https://github.com/junka/pycbpf.git',
         collaborators_url:
-          "https://api.github.com/repos/junka/pycbpf/collaborators{/collaborator}",
+          'https://api.github.com/repos/junka/pycbpf/collaborators{/collaborator}',
         comments_url:
-          "https://api.github.com/repos/junka/pycbpf/comments{/number}",
-        commits_url: "https://api.github.com/repos/junka/pycbpf/commits{/sha}",
+          'https://api.github.com/repos/junka/pycbpf/comments{/number}',
+        commits_url: 'https://api.github.com/repos/junka/pycbpf/commits{/sha}',
         compare_url:
-          "https://api.github.com/repos/junka/pycbpf/compare/{base}...{head}",
+          'https://api.github.com/repos/junka/pycbpf/compare/{base}...{head}',
         contents_url:
-          "https://api.github.com/repos/junka/pycbpf/contents/{+path}",
+          'https://api.github.com/repos/junka/pycbpf/contents/{+path}',
         contributors_url:
-          "https://api.github.com/repos/junka/pycbpf/contributors",
-        created_at: "2023-05-19T15:10:31Z",
-        default_branch: "main",
+          'https://api.github.com/repos/junka/pycbpf/contributors',
+        created_at: '2023-05-19T15:10:31Z',
+        default_branch: 'main',
         deployments_url:
-          "https://api.github.com/repos/junka/pycbpf/deployments",
-        description: "python script which compile cbpf to C code for BCC",
+          'https://api.github.com/repos/junka/pycbpf/deployments',
+        description: 'python script which compile cbpf to C code for BCC',
         disabled: false,
-        downloads_url: "https://api.github.com/repos/junka/pycbpf/downloads",
-        events_url: "https://api.github.com/repos/junka/pycbpf/events",
+        downloads_url: 'https://api.github.com/repos/junka/pycbpf/downloads',
+        events_url: 'https://api.github.com/repos/junka/pycbpf/events',
         fork: false,
         forks: 0,
         forks_count: 0,
-        forks_url: "https://api.github.com/repos/junka/pycbpf/forks",
-        full_name: "junka/pycbpf",
+        forks_url: 'https://api.github.com/repos/junka/pycbpf/forks',
+        full_name: 'junka/pycbpf',
         git_commits_url:
-          "https://api.github.com/repos/junka/pycbpf/git/commits{/sha}",
+          'https://api.github.com/repos/junka/pycbpf/git/commits{/sha}',
         git_refs_url:
-          "https://api.github.com/repos/junka/pycbpf/git/refs{/sha}",
+          'https://api.github.com/repos/junka/pycbpf/git/refs{/sha}',
         git_tags_url:
-          "https://api.github.com/repos/junka/pycbpf/git/tags{/sha}",
-        git_url: "git://github.com/junka/pycbpf.git",
+          'https://api.github.com/repos/junka/pycbpf/git/tags{/sha}',
+        git_url: 'git://github.com/junka/pycbpf.git',
         has_discussions: false,
         has_downloads: true,
         has_issues: true,
         has_pages: false,
         has_projects: true,
         has_wiki: true,
-        homepage: "",
-        hooks_url: "https://api.github.com/repos/junka/pycbpf/hooks",
-        html_url: "https://github.com/junka/pycbpf",
+        homepage: '',
+        hooks_url: 'https://api.github.com/repos/junka/pycbpf/hooks',
+        html_url: 'https://github.com/junka/pycbpf',
         id: 642886741,
         is_template: false,
         issue_comment_url:
-          "https://api.github.com/repos/junka/pycbpf/issues/comments{/number}",
+          'https://api.github.com/repos/junka/pycbpf/issues/comments{/number}',
         issue_events_url:
-          "https://api.github.com/repos/junka/pycbpf/issues/events{/number}",
-        issues_url: "https://api.github.com/repos/junka/pycbpf/issues{/number}",
-        keys_url: "https://api.github.com/repos/junka/pycbpf/keys{/key_id}",
-        labels_url: "https://api.github.com/repos/junka/pycbpf/labels{/name}",
-        language: "Python",
-        languages_url: "https://api.github.com/repos/junka/pycbpf/languages",
+          'https://api.github.com/repos/junka/pycbpf/issues/events{/number}',
+        issues_url: 'https://api.github.com/repos/junka/pycbpf/issues{/number}',
+        keys_url: 'https://api.github.com/repos/junka/pycbpf/keys{/key_id}',
+        labels_url: 'https://api.github.com/repos/junka/pycbpf/labels{/name}',
+        language: 'Python',
+        languages_url: 'https://api.github.com/repos/junka/pycbpf/languages',
         license: {
-          key: "mit",
-          name: "MIT License",
-          node_id: "MDc6TGljZW5zZTEz",
-          spdx_id: "MIT",
-          url: "https://api.github.com/licenses/mit",
+          key: 'mit',
+          name: 'MIT License',
+          node_id: 'MDc6TGljZW5zZTEz',
+          spdx_id: 'MIT',
+          url: 'https://api.github.com/licenses/mit'
         },
-        merges_url: "https://api.github.com/repos/junka/pycbpf/merges",
+        merges_url: 'https://api.github.com/repos/junka/pycbpf/merges',
         milestones_url:
-          "https://api.github.com/repos/junka/pycbpf/milestones{/number}",
+          'https://api.github.com/repos/junka/pycbpf/milestones{/number}',
         mirror_url: null,
-        name: "pycbpf",
-        node_id: "R_kgDOJlGsVQ",
+        name: 'pycbpf',
+        node_id: 'R_kgDOJlGsVQ',
         notifications_url:
-          "https://api.github.com/repos/junka/pycbpf/notifications{?since,all,participating}",
+          'https://api.github.com/repos/junka/pycbpf/notifications{?since,all,participating}',
         open_issues: 1,
         open_issues_count: 1,
         owner: {
-          avatar_url: "https://avatars.githubusercontent.com/u/2344498?v=4",
-          events_url: "https://api.github.com/users/junka/events{/privacy}",
-          followers_url: "https://api.github.com/users/junka/followers",
+          avatar_url: 'https://avatars.githubusercontent.com/u/2344498?v=4',
+          events_url: 'https://api.github.com/users/junka/events{/privacy}',
+          followers_url: 'https://api.github.com/users/junka/followers',
           following_url:
-            "https://api.github.com/users/junka/following{/other_user}",
-          gists_url: "https://api.github.com/users/junka/gists{/gist_id}",
-          gravatar_id: "",
-          html_url: "https://github.com/junka",
+            'https://api.github.com/users/junka/following{/other_user}',
+          gists_url: 'https://api.github.com/users/junka/gists{/gist_id}',
+          gravatar_id: '',
+          html_url: 'https://github.com/junka',
           id: 2344498,
-          login: "junka",
-          node_id: "MDQ6VXNlcjIzNDQ0OTg=",
-          organizations_url: "https://api.github.com/users/junka/orgs",
+          login: 'junka',
+          node_id: 'MDQ6VXNlcjIzNDQ0OTg=',
+          organizations_url: 'https://api.github.com/users/junka/orgs',
           received_events_url:
-            "https://api.github.com/users/junka/received_events",
-          repos_url: "https://api.github.com/users/junka/repos",
+            'https://api.github.com/users/junka/received_events',
+          repos_url: 'https://api.github.com/users/junka/repos',
           site_admin: false,
           starred_url:
-            "https://api.github.com/users/junka/starred{/owner}{/repo}",
-          subscriptions_url: "https://api.github.com/users/junka/subscriptions",
-          type: "User",
-          url: "https://api.github.com/users/junka",
+            'https://api.github.com/users/junka/starred{/owner}{/repo}',
+          subscriptions_url: 'https://api.github.com/users/junka/subscriptions',
+          type: 'User',
+          url: 'https://api.github.com/users/junka'
         },
         private: false,
-        pulls_url: "https://api.github.com/repos/junka/pycbpf/pulls{/number}",
-        pushed_at: "2024-05-27T11:41:05Z",
-        releases_url: "https://api.github.com/repos/junka/pycbpf/releases{/id}",
+        pulls_url: 'https://api.github.com/repos/junka/pycbpf/pulls{/number}',
+        pushed_at: '2024-05-27T11:41:05Z',
+        releases_url: 'https://api.github.com/repos/junka/pycbpf/releases{/id}',
         size: 57,
-        ssh_url: "git@github.com:junka/pycbpf.git",
+        ssh_url: 'git@github.com:junka/pycbpf.git',
         stargazers_count: 0,
-        stargazers_url: "https://api.github.com/repos/junka/pycbpf/stargazers",
+        stargazers_url: 'https://api.github.com/repos/junka/pycbpf/stargazers',
         statuses_url:
-          "https://api.github.com/repos/junka/pycbpf/statuses/{sha}",
+          'https://api.github.com/repos/junka/pycbpf/statuses/{sha}',
         subscribers_url:
-          "https://api.github.com/repos/junka/pycbpf/subscribers",
+          'https://api.github.com/repos/junka/pycbpf/subscribers',
         subscription_url:
-          "https://api.github.com/repos/junka/pycbpf/subscription",
-        svn_url: "https://github.com/junka/pycbpf",
-        tags_url: "https://api.github.com/repos/junka/pycbpf/tags",
-        teams_url: "https://api.github.com/repos/junka/pycbpf/teams",
-        topics: ["bcc", "cbpf", "ebpf", "packet-capture", "tcpdump"],
-        trees_url: "https://api.github.com/repos/junka/pycbpf/git/trees{/sha}",
-        updated_at: "2024-05-27T11:41:08Z",
-        url: "https://api.github.com/repos/junka/pycbpf",
-        visibility: "public",
+          'https://api.github.com/repos/junka/pycbpf/subscription',
+        svn_url: 'https://github.com/junka/pycbpf',
+        tags_url: 'https://api.github.com/repos/junka/pycbpf/tags',
+        teams_url: 'https://api.github.com/repos/junka/pycbpf/teams',
+        topics: ['bcc', 'cbpf', 'ebpf', 'packet-capture', 'tcpdump'],
+        trees_url: 'https://api.github.com/repos/junka/pycbpf/git/trees{/sha}',
+        updated_at: '2024-05-27T11:41:08Z',
+        url: 'https://api.github.com/repos/junka/pycbpf',
+        visibility: 'public',
         watchers: 0,
         watchers_count: 0,
-        web_commit_signoff_required: false,
+        web_commit_signoff_required: false
       },
       sender: {
-        avatar_url: "https://avatars.githubusercontent.com/u/2344498?v=4",
-        events_url: "https://api.github.com/users/junka/events{/privacy}",
-        followers_url: "https://api.github.com/users/junka/followers",
+        avatar_url: 'https://avatars.githubusercontent.com/u/2344498?v=4',
+        events_url: 'https://api.github.com/users/junka/events{/privacy}',
+        followers_url: 'https://api.github.com/users/junka/followers',
         following_url:
-          "https://api.github.com/users/junka/following{/other_user}",
-        gists_url: "https://api.github.com/users/junka/gists{/gist_id}",
-        gravatar_id: "",
-        html_url: "https://github.com/junka",
+          'https://api.github.com/users/junka/following{/other_user}',
+        gists_url: 'https://api.github.com/users/junka/gists{/gist_id}',
+        gravatar_id: '',
+        html_url: 'https://github.com/junka',
         id: 2344498,
-        login: "junka",
-        node_id: "MDQ6VXNlcjIzNDQ0OTg=",
-        organizations_url: "https://api.github.com/users/junka/orgs",
+        login: 'junka',
+        node_id: 'MDQ6VXNlcjIzNDQ0OTg=',
+        organizations_url: 'https://api.github.com/users/junka/orgs',
         received_events_url:
-          "https://api.github.com/users/junka/received_events",
-        repos_url: "https://api.github.com/users/junka/repos",
+          'https://api.github.com/users/junka/received_events',
+        repos_url: 'https://api.github.com/users/junka/repos',
         site_admin: false,
         starred_url:
-          "https://api.github.com/users/junka/starred{/owner}{/repo}",
-        subscriptions_url: "https://api.github.com/users/junka/subscriptions",
-        type: "User",
-        url: "https://api.github.com/users/junka",
-      },
-    };
+          'https://api.github.com/users/junka/starred{/owner}{/repo}',
+        subscriptions_url: 'https://api.github.com/users/junka/subscriptions',
+        type: 'User',
+        url: 'https://api.github.com/users/junka'
+      }
+    }
 
-    jest.replaceProperty(context, "payload", issue_comment_event);
-    jest.replaceProperty(context, "eventName", "issue_comment");
-    jest.replaceProperty(context, "actor", "nbody");
+    jest.replaceProperty(context, 'payload', issue_comment_event)
+    jest.replaceProperty(context, 'eventName', 'issue_comment')
+    jest.replaceProperty(context, 'actor', 'nbody')
 
-    const resp = await main.PostGithubEvent();
-    expect(runMock).toHaveReturned();
-    expect(resp).toEqual(200);
-    expect(debugMock).toHaveBeenNthCalledWith(1, 0);
-    expect(debugMock).toHaveBeenNthCalledWith(2, "success");
+    const resp = await main.PostGithubEvent()
+    expect(runMock).toHaveReturned()
+    expect(resp).toEqual(200)
+    expect(debugMock).toHaveBeenNthCalledWith(1, 0)
+    expect(debugMock).toHaveBeenNthCalledWith(2, 'success')
 
-    expect(errorMock).not.toHaveBeenCalled();
-  });
-});
+    expect(errorMock).not.toHaveBeenCalled()
+  })
+})
