@@ -13,7 +13,8 @@
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "newLine": "lf"
+    "newLine": "lf",
+    "esModuleInterop": true
   },
   "exclude": ["./dist", "./node_modules", "./__tests__", "./coverage"]
 }

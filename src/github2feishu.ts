@@ -9,10 +9,9 @@ async function PostGithubTrending(
   timestamp: number,
   sign: string
 ): Promise<number | undefined> {
-  return getTrending().then(async repos => {
-    const cardmsg = BuildGithubTrendingCard(timestamp, sign, repos)
-    return PostToFeishu(webhookId, cardmsg)
-  })
+  const trend = await getTrending()
+  const cardmsg = BuildGithubTrendingCard(timestamp, sign, trend)
+  return PostToFeishu(webhookId, cardmsg)
 }
 
 export async function PostGithubEvent(): Promise<number | undefined> {
@@ -115,8 +114,8 @@ export async function PostGithubEvent(): Promise<number | undefined> {
     case 'push': {
       const head_commit = context.payload['head_commit']
       console.log(context.payload['ref'])
-      etitle =
-        (context.payload['ref'].indexOf('refs/tags/') !== -1
+      const ptext =
+        context.payload['ref'].indexOf('refs/tags/') !== -1
           ? `tag: ${context.payload['ref'].slice(
               context.payload['ref'].indexOf('refs/tags/') + 10
             )}`
@@ -124,8 +123,8 @@ export async function PostGithubEvent(): Promise<number | undefined> {
             ? `branch: ${context.payload['ref'].slice(
                 context.payload['ref'].indexOf('refs/heads/') + 11
               )}`
-            : '') +
-        `\n\nCommits: [${head_commit['id']}](${head_commit['url']})\n\n${head_commit['message']}`
+            : ''
+      etitle = `${ptext}\n\nCommits: [${head_commit['id']}](${head_commit['url']})\n\n${head_commit['message']}`
       status =
         context.payload['created'] === true
           ? 'created'
