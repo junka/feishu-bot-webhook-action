@@ -49133,7 +49133,7 @@ ${pendingInterceptorsFormatter.format(pending)}
               ''
             detailurl = comment?.html_url || ''
             break
-          case 'issue':
+          case 'issues':
             const issue = github_1.context.payload.issue
             etitle =
               '[No.' +
