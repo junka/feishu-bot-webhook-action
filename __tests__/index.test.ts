@@ -4,7 +4,7 @@
 import * as main from '../src/github2feishu'
 
 // Mock the action's entrypoint
-const runMock = jest.spyOn(main, 'PostGithubEvent').mockImplementation()
+const runMock = jest.spyOn(main, 'PostGithubEvent').mockResolvedValue(undefined)
 
 describe('index', () => {
   it('calls run when imported', async () => {

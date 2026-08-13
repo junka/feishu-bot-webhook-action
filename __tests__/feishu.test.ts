@@ -1,4 +1,4 @@
-import { sign_with_timestamp, PostToFeishu } from '../src/feishu'
+import { signWithTimestamp, PostToFeishu } from '../src/feishu'
 import * as core from '@actions/core'
 import * as dotenv from 'dotenv'
 
@@ -12,7 +12,7 @@ describe('feishu', () => {
   it('signature', async () => {
     const signKey = 'dGhpcyBpcyBhIGtleQ=='
     const tm = 1716283459
-    const signature = sign_with_timestamp(tm, signKey)
+    const signature = signWithTimestamp(tm, signKey)
     expect(signature).toEqual('8EyY+xxfJvzWjZQpdc2mgvQFaG7lF5nbxl7RITyMkJU=')
   })
 

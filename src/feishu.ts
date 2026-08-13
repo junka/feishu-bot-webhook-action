@@ -1,50 +1,44 @@
-import * as https from 'https'
 import * as crypto from 'crypto'
 import * as core from '@actions/core'
 
-export function sign_with_timestamp(timestamp: number, key: string): string {
-  const toencstr = `${timestamp}\n${key}`
-  const signature = crypto.createHmac('SHA256', toencstr).digest('base64')
-  return signature
+const FEISHU_HOOK_PREFIX = 'https://open.feishu.cn/open-apis/bot/v2/hook/'
+
+/**
+ * Generate the HMAC-SHA256 signature required by Feishu bot verification.
+ *
+ * Feishu algorithm (key = timestamp + "\n" + secret, empty message):
+ *   sign = base64(HMAC_SHA256(key, ""))
+ */
+export function signWithTimestamp(timestamp: number, key: string): string {
+  const toEncStr = `${timestamp}\n${key}`
+  return crypto.createHmac('SHA256', toEncStr).digest('base64')
 }
 
+/**
+ * Post a message payload to a Feishu bot webhook.
+ *
+ * Resolves with the HTTP status code of the response, or rejects when the
+ * request itself fails. The response body is parsed (when possible) and its
+ * code/msg are surfaced through core.debug for diagnostics.
+ */
 export async function PostToFeishu(
   id: string,
   content: string
 ): Promise<number | undefined> {
-  return new Promise((resolve, reject) => {
-    const options = {
-      hostname: 'open.feishu.cn',
-      port: 443,
-      path: `/open-apis/bot/v2/hook/${id}`,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-    const req = https.request(options, res => {
-      const statusCode = res.statusCode
-      res.on('data', d => {
-        process.stdout.write(d)
-        const result: string = d.toString()
-        try {
-          const json = JSON.parse(result)
-          core.debug(json.code)
-          core.debug(json.msg)
-        } catch (err) {
-          console.log(err)
-        }
-      })
-
-      res.on('end', () => {
-        resolve(statusCode)
-      })
-    })
-    req.on('error', e => {
-      console.error(e)
-      reject(e)
-    })
-    req.write(content)
-    req.end()
+  const response = await fetch(`${FEISHU_HOOK_PREFIX}${id}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: content
   })
+
+  const body: string = await response.text()
+  try {
+    const json = JSON.parse(body)
+    core.debug(json.code)
+    core.debug(json.msg)
+  } catch {
+    core.error(`Failed to parse Feishu response: ${body}`)
+  }
+
+  return response.status
 }
